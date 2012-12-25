@@ -26,11 +26,20 @@ function validatePackage(data) {
 
     for (var name in map) {
         var field = map[name];
+
+        // Required field check
         if (field.required && !parsed[name]) {
             out.errors.push("Missing required field: '" + name + "'");
             continue;
         }
 
+        // Type checking
+        if (typeof parsed[name] != field.type ) {
+            out.errors.push("Type for field '" + name + "', was expected to be " + field.type + ", not " + typeof parsed[name]);
+            continue;
+        }
+
+        // Regexp format check
         if (field.format && !field.format.test(parsed[name])) {
             out.errors.push("Value for field '" + name + "', '" + parsed[name] + "' does not match format: " + field.format.toString());
         }
