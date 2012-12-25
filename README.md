@@ -1,5 +1,5 @@
 # About
-package.json files are central for node.js/npm projects. Beyond just valid json, there required fields to follow the Packages [1.0](http://wiki.commonjs.org/wiki/Packages/1.0)/[1.1](http://wiki.commonjs.org/wiki/Packages/1.0) specifications.
+package.json files are central for node.js/npm projects. Beyond just valid json, there are required fields to follow the Packages [1.0](http://wiki.commonjs.org/wiki/Packages/1.0)/[1.1](http://wiki.commonjs.org/wiki/Packages/1.0) specifications.
 
 This tool verifies the package.json against the spec, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
 

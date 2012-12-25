@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Package.json validator</title>
+    <script src="package.json-validator.js"></script>
+    <style type="text/css">
+        .container { width: 600px; }
+        textarea { width: 590px; height: 200px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            This tool verifies the package.json against the <a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1 spec</a>, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
+            <p>
+            Enter the contents of your package.json file:<br />
+            <textarea id="incoming"></textarea>
+            <br />
+            <input id="validate" type="button" value="Validate"/>
+        </div>
+
+        <div id="results" style="display:none">
+            Results:
+            <textarea id="outgoing"></textarea>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script>
+        $("#validate").click(function() {
+            $("#results").fadeOut();
+            var data = $("textarea").val(),
+                results = validatePackage(data);
+            $("#outgoing").val(JSON.stringify(results, null, 2));
+            $("#results").fadeIn();
+        });
+    </script>
+
+</body>
+</html>
