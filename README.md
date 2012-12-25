@@ -4,11 +4,17 @@ package.json files are central for node.js/npm projects. Beyond just valid json,
 This tool verifies the package.json against the spec, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
 
 # Usages
-* Hosted courtesy of Nick Sullivan at http://creationeer.me/package.json-validator/
-* Does your computer want to talk to it? There is an api at http://creationeer.me/package.json-validator/api/
-* Want to run your own copy? You are welcome to clone or fork this repo
+* Online copy hosted courtesy of Nick Sullivan at http://creationeer.me/package.json-validator/
+
+Want to run your own copy? You are welcome to clone or fork this repo
+
+# Future ideas...
+* An API
+* A node based command line interface, that would allow for plugins for editors
+
 
 # Issues/Requests
 Please check out [the existing issues](https://github.com/pilotfish/pilotfish/issues), and if you don't see that your problem is already being worked on, please [file an issue](https://github.com/pilotfish/pilotfish/issues/new)
 
 # License
+See LICENSE
