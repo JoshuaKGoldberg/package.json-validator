@@ -20,13 +20,19 @@ function validatePackage(data) {
 
     // http://wiki.commonjs.org/wiki/Packages/1.1
     var map = {
-        name: {"type": "string", required: true},
-        version: {"type": "string", required: true}
+        "name":     {"type": "string", required: true, format: /^[a-z0-9\.\-_]+$/},
+        "version":  {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/}
     };
 
-    for (var field in map) {
-        if (map[field].required && !parsed[field]) {
-            out.errors.push("Missing required field: '" + field + "'");
+    for (var name in map) {
+        var field = map[name];
+        if (field.required && !parsed[name]) {
+            out.errors.push("Missing required field: '" + name + "'");
+            continue;
+        }
+
+        if (field.format && !field.format.test(parsed[name])) {
+            out.errors.push("Value for field '" + name + "', '" + parsed[name] + "' does not match format: " + field.format.toString());
         }
     }
 
