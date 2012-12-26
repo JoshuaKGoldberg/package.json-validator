@@ -75,7 +75,7 @@ PJV.getSpecMap = function(specName) {
 };
 
 PJV.validatePackage = function(data, specName, options) {
-    var out = {}, parsed;
+    var parsed;
     if (!data) {
         out.critical = {"Empty JSON": "No data to parse"};
         return out;
@@ -97,20 +97,20 @@ PJV.validatePackage = function(data, specName, options) {
         out.critical = {"Invalid specification": specName};
         return out;
     }
-    out.errors = [];
-    out.warnings = [];
-    out.optional = [];
+    var errors = [],
+        warnings = [],
+        recommendations = [];
 
      for (var name in map) {
         var field = map[name];
 
         if (typeof parsed[name] == "undefined") {
             if (field.required) {
-                out.errors.push("Missing required field: '" + name + "'");
+                errors.push("Missing required field: '" + name + "'");
             } else if (field.recommended) {
-                out.warnings.push("Missing recommended field: '" + name + "'");
+                warnings.push("Missing recommended field: '" + name + "'");
             } else {
-                out.optional.push("Missing optional field: '" + name + "'");
+                recommendations.push("Missing optional field: '" + name + "'");
             }
             continue;
         }
@@ -118,20 +118,26 @@ PJV.validatePackage = function(data, specName, options) {
         // Type checking
         if ((field.type == "array" && !parsed[name] instanceof Array)
                 || (field.type !="array" && typeof parsed[name] != field.type) ) {
-            out.errors.push("Type for field '" + name + "', was expected to be " + field.type + ", not " + typeof parsed[name]);
+            errors.push("Type for field '" + name + "', was expected to be " + field.type + ", not " + typeof parsed[name]);
             continue;
         }
 
         // Regexp format check
         if (field.format && !field.format.test(parsed[name])) {
-            out.errors.push("Value for field '" + name + "', '" + parsed[name] + "' does not match format: " + field.format.toString());
+            errors.push("Value for field '" + name + "', '" + parsed[name] + "' does not match format: " + field.format.toString());
         }
     }
 
-    if (! out.errors.length && !out.warnings.length) {
-        return {valid: true};
-    } else {
-        return out;
+    var out = {valid: errors.length > 0 ? false : true};
+    if (errors.length > 0) {
+        out.errors = errors;
+    }
+    if (options.warnings !== false && warnings.length > 0 ) {
+        out.warnings = warnings;
+    }
+    if (options.recommendations !== false && recommendations.length > 0 ) {
+        out.recommendations = recommendations;
     }
 
+    return out;
 };

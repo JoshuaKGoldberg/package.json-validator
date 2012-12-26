@@ -20,10 +20,16 @@
             <br />
             <textarea id="incoming"></textarea>
             <br />
-            Validate against:<br />
+            Validate against:
             <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
-            <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Commonjs Packages 1.0</a>
-            <input type="radio" name="spec" value="commonjs_1.1" title="Not yet supported" disabled="true"><a title="Not yet supported" href="http://wiki.commonjs.org/wiki/Packages/1.1">Commonjs Packages 1.1</a>
+            <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
+            <input type="radio" name="spec" value="commonjs_1.1" title="Not yet supported" disabled="true"><a title="Not yet supported" href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
+
+            <p>
+            Verbosity:
+            <input checked="true" type="checkbox" disabled="true">Errors
+            <input checked="true" type="checkbox" id="warnings">Warnings
+            <input checked="true" type="checkbox" id="recommendations">Recommendations
             <p>
             <input id="validate" type="button" value="Validate"/>
         </div>
@@ -157,7 +163,11 @@
         $("#validate").click(function() {
             $("#outgoing").val("");
             var data = $("textarea").val(),
-                results = PJV.validatePackage(data, $("input[name=spec]:checked").val(), {});
+                options = {
+                    "warnings": $("#warnings").prop("checked"),
+                    "recommendations": $("#recommendations").prop("checked")
+                },
+                results = PJV.validatePackage(data, $("input[name=spec]:checked").val(), options);
             $("#outgoing").val(JSON.stringify(results, null, 2));
             $("#results").fadeIn();
         });
