@@ -65,7 +65,30 @@ PJV.getSpecMap = function(specName) {
 
     } else if (specName == "commonjs_1.1") {
         // http://wiki.commonjs.org/wiki/Packages/1.1
-        return {};
+        return {
+            "name":         {"type": "string", required: true, format: /^[a-z0-9\.\-_]+$/},
+            "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
+            "main":         {"type": "array", required: true},
+            "directories":  {"type": "object", required: true},
+
+            "maintainers":  {"type": "array", recommended: true},
+            "description":  {"type": "string", recommended: true},
+            "licenses":     {"type": "array", recommended: true},
+            "bugs":         {"type": "string", recommended: true},
+            "keywords":     {"type": "array"},
+            "repositories": {"type": "array"},
+            "contributors": {"type": "array"},
+            "dependencies": {"type": "object"},
+            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
+            "os":           {"type": "array"},
+            "cpu":          {"type": "array"},
+            "engine":       {"type": "array"},
+            "builtin":      {"type": "boolean"},
+            "implements":   {"type": "array"},
+            "scripts":      {"type": "object"},
+            "overlay":      {"type": "object"},
+            "checksums":    {"type": "object"}
+        };
 
     } else {
         // Unrecognized spec
@@ -76,6 +99,7 @@ PJV.getSpecMap = function(specName) {
 
 PJV.validatePackage = function(data, specName, options) {
     var parsed;
+    var out = {"valid": false};
     if (!data) {
         out.critical = {"Empty JSON": "No data to parse"};
         return out;
@@ -128,7 +152,7 @@ PJV.validatePackage = function(data, specName, options) {
         }
     }
 
-    var out = {valid: errors.length > 0 ? false : true};
+    out.valid = errors.length > 0 ? false : true;
     if (errors.length > 0) {
         out.errors = errors;
     }
