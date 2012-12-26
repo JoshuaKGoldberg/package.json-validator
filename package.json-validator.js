@@ -10,12 +10,12 @@ PJV.getSpecMap = function(specName) {
         return {
             "name":         {"type": "string", required: true, format: /^[a-z0-9][a-z0-9\.\-_]+$/},
             "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
-            "description":  {"type": "string", required: true},
-            "keywords":     {"type": "array"},
-            "homepage":     {"type": "string", format: /^http:\/\/[a-z.\-0-9]+/},
-            "bugs":         {"type": "string", required: true}, // XXX bugs can be a string or an object
+            "description":  {"type": "string", recommended: true},
+            "keywords":     {"type": "array", recommended: true},
+            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
+            "bugs":         {"type": "string", recommended: true}, // XXX bugs can be a string or an object
             "author":       {"type": "object", required: true},
-            "maintainers":  {"type": "object"},
+            "maintainers":  {"type": "object", recommended: true},
             "contributors": {"type": "object"},
             "files":        {"type": "array"},
             "main":         {"type": "array"},
@@ -99,19 +99,19 @@ PJV.validatePackage = function(data, specName, options) {
     }
     out.errors = [];
     out.warnings = [];
+    out.optional = [];
 
      for (var name in map) {
         var field = map[name];
 
-        // Required field check
-        if (field.required && !parsed[name]) {
-            out.errors.push("Missing required field: '" + name + "'");
-            continue;
-        }
-
-        // Optional field check
-        if (!parsed[name] && ! field.required) {
-            out.warnings.push("Missing optional field: '" + name + "'");
+        if (typeof parsed[name] == "undefined") {
+            if (field.required) {
+                out.errors.push("Missing required field: '" + name + "'");
+            } else if (field.recommended) {
+                out.warnings.push("Missing recommended field: '" + name + "'");
+            } else {
+                out.optional.push("Missing optional field: '" + name + "'");
+            }
             continue;
         }
 
