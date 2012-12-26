@@ -4,9 +4,7 @@ package.json files are central for node.js/npm projects. Beyond just valid json,
 This tool verifies the package.json against the spec, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
 
 # Usages
-* Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](http://package-json-validator.com/)
-
-Want to run your own copy? You are welcome to clone or fork this repo
+Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](http://package-json-validator.com/). Want to run your own copy? You are welcome to clone or fork this repo.
 
 # Future ideas...
 * Support for NPM specific fields
