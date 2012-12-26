@@ -9,6 +9,8 @@ This tool verifies the package.json against the spec, letting you know about err
 Want to run your own copy? You are welcome to clone or fork this repo
 
 # Future ideas...
+* Support for NPM specific fields
+* Choice between the type of validation
 * An API
 * A node based command line interface, that would allow for plugins for editors
 
