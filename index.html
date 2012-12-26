@@ -11,11 +11,17 @@
 <body>
     <div class="container">
         <div>
-            This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the <a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0 spec</a>, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
+            <h2>Package.json validation</h2>
+            This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the specifications, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
             <p>
             Enter the contents of your package.json file:<br />
             <textarea id="incoming"></textarea>
             <br />
+            Validate against:<br />
+            <input type="radio" name="spec" value="npm" disabled="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
+            <input type="radio" name="spec" value="commonjs_1.0" checked="true"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Commonjs Packages 1.0</a>
+            <input type="radio" name="spec" value="commonjs_1.1" disabled="true"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Commonjs Packages 1.1</a>
+            <p>
             <input id="validate" type="button" value="Validate"/>
         </div>
 
@@ -23,20 +29,22 @@
             Results:
             <textarea id="outgoing"></textarea>
         </div>
-    </div>
+
+    <footer>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></footer>
+
+    </div><!--.container -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script>
         $("#validate").click(function() {
-            $("#results").fadeOut();
+            $("#outgoing").val("");
             var data = $("textarea").val(),
-                results = validatePackage(data);
+                results = PJV.validatePackage(data, $("input[name=spec]:checked").val(), {});
             $("#outgoing").val(JSON.stringify(results, null, 2));
             $("#results").fadeIn();
         });
     </script>
     <script type="text/javascript">
-
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-37232148-1']);
       _gaq.push(['_trackPageview']);
@@ -46,9 +54,7 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-
     </script>
 
-    <footer>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></footer>
 </body>
 </html>
