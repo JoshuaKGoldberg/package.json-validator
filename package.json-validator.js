@@ -52,7 +52,7 @@ PJV.getSpecMap = function(specName) {
             "repositories": {"type": "object", required: true},
             "dependencies": {"type": "object", required: true},
 
-            "homepage":     {"type": "string", format: /^http:\/\/[a-z.\-0-9]+/},
+            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
             "os":           {"type": "array"},
             "cpu":          {"type": "array"},
             "engine":       {"type": "array"},
@@ -106,11 +106,11 @@ PJV.validatePackage = function(data, specName, options) {
 
         if (typeof parsed[name] == "undefined") {
             if (field.required) {
-                errors.push("Missing required field: '" + name + "'");
+                errors.push("Missing required field: " + name);
             } else if (field.recommended) {
-                warnings.push("Missing recommended field: '" + name + "'");
+                warnings.push("Missing recommended field: " + name);
             } else {
-                recommendations.push("Missing optional field: '" + name + "'");
+                recommendations.push("Missing optional field: " + name);
             }
             continue;
         }
@@ -118,13 +118,13 @@ PJV.validatePackage = function(data, specName, options) {
         // Type checking
         if ((field.type == "array" && !parsed[name] instanceof Array)
                 || (field.type !="array" && typeof parsed[name] != field.type) ) {
-            errors.push("Type for field '" + name + "', was expected to be " + field.type + ", not " + typeof parsed[name]);
+            errors.push("Type for field " + name + ", was expected to be " + field.type + ", not " + typeof parsed[name]);
             continue;
         }
 
         // Regexp format check
         if (field.format && !field.format.test(parsed[name])) {
-            errors.push("Value for field '" + name + "', '" + parsed[name] + "' does not match format: " + field.format.toString());
+            errors.push("Value for field " + name + ", " + parsed[name] + " does not match format: " + field.format.toString());
         }
     }
 
