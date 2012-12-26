@@ -6,8 +6,38 @@ var PJV = {};
 PJV.getSpecMap = function(specName) {
 
     if (specName == "npm") {
-        // https://github.com/isaacs/npm/blob/master/doc/cli/json.md
-        return {};
+        // https://github.com/isaacs/npm/blob/c1f44603019651b99f7bfd129fa89e2c09e8f369/doc/cli/json.md
+        return {
+            "name":         {"type": "string", required: true, format: /^[a-z0-9][a-z0-9\.\-_]+$/},
+            "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
+            "description":  {"type": "string", required: true},
+            "keywords":     {"type": "array"},
+            "homepage":     {"type": "string", format: /^http:\/\/[a-z.\-0-9]+/},
+            "bugs":         {"type": "string", required: true}, // XXX bugs can be a string or an object
+            "author":       {"type": "object", required: true},
+            "maintainers":  {"type": "object"},
+            "contributors": {"type": "object"},
+            "files":        {"type": "array"},
+            "main":         {"type": "array"},
+            "bin":          {"type": "object"},
+            "man":          {"type": "object"},
+            "directories":  {"type": "object"},
+            "repository":   {"type": "object"},
+            "scripts":      {"type": "object"},
+            "config":       {"type": "object"},
+            "dependencies": {"type": "object"},
+            "devDependencies": {"type": "object"},
+            "bundledDependencies": {"type": "object"},
+            "optionalDependencies": {"type": "object"},
+            "engines":      {"type": "object"},
+            "engineStrict": {"type": "boolean"},
+            "os":           {"type": "array"},
+            "cpu":          {"type": "array"},
+            "preferGlobal": {"type": "boolean"},
+            "private":      {"type": "boolean"},
+            "publishConfig":{"type": "object"}
+        };
+
     } else if (specName == "commonjs_1.0") {
         // http://wiki.commonjs.org/wiki/Packages/1.0
         return {
@@ -17,12 +47,11 @@ PJV.getSpecMap = function(specName) {
             "keywords":     {"type": "array", required: true},
             "maintainers":  {"type": "array", required: true},
             "contributors": {"type": "array", required: true},
-            "bugs":         {"type": "object", required: true},
+            "bugs":         {"type": "string", required: true}, // XXX bugs can be a string or an object
             "licenses":     {"type": "array", required: true},
             "repositories": {"type": "object", required: true},
             "dependencies": {"type": "object", required: true},
 
-            "devDependencies": {"type": "object"},
             "homepage":     {"type": "string", format: /^http:\/\/[a-z.\-0-9]+/},
             "os":           {"type": "array"},
             "cpu":          {"type": "array"},
@@ -33,9 +62,11 @@ PJV.getSpecMap = function(specName) {
             "scripts":      {"type": "object"},
             "checksums":    {"type": "object"}
         };
+
     } else if (specName == "commonjs_1.1") {
         // http://wiki.commonjs.org/wiki/Packages/1.1
         return {};
+
     } else {
         // Unrecognized spec
         return false;
@@ -86,7 +117,7 @@ PJV.validatePackage = function(data, specName, options) {
 
         // Type checking
         if ((field.type == "array" && !parsed[name] instanceof Array)
-                || (typeof parsed[name] != field.type) ) {
+                || (field.type !="array" && typeof parsed[name] != field.type) ) {
             out.errors.push("Type for field '" + name + "', was expected to be " + field.type + ", not " + typeof parsed[name]);
             continue;
         }

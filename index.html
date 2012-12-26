@@ -14,13 +14,16 @@
             <h2>Package.json validation</h2>
             This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the specifications, letting you know about errors that you MUST have, and making recommendations for optional fields that you SHOULD have.
             <p>
-            Enter the contents of your package.json file:<br />
+            Enter the contents of your package.json file: - Samples: 
+            <a href='javascript:$("#incoming").val($("#sample1").html());'>http-server</a> /
+            <a href='javascript:$("#incoming").val($("#sample2").html());'>pilotfish</a> 
+            <br />
             <textarea id="incoming"></textarea>
             <br />
             Validate against:<br />
-            <input type="radio" name="spec" value="npm" disabled="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
-            <input type="radio" name="spec" value="commonjs_1.0" checked="true"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Commonjs Packages 1.0</a>
-            <input type="radio" name="spec" value="commonjs_1.1" disabled="true"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Commonjs Packages 1.1</a>
+            <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
+            <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Commonjs Packages 1.0</a>
+            <input type="radio" name="spec" value="commonjs_1.1" title="Not yet supported" disabled="true"><a title="Not yet supported" href="http://wiki.commonjs.org/wiki/Packages/1.1">Commonjs Packages 1.1</a>
             <p>
             <input id="validate" type="button" value="Validate"/>
         </div>
@@ -33,6 +36,121 @@
     <footer>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></footer>
 
     </div><!--.container -->
+
+    <div id="sample1" style="display:none">
+{
+  "name": "http-server",
+  "preferGlobal": "true",
+  "version": "0.3.0",
+  "author": "Nodejitsu &lt;support@nodejitsu.com&gt;",
+  "description": "a simple zero-configuration command-line http server",
+  "contributors": [ 
+    {
+      "name": "Marak Squires",
+      "email": "marak@nodejitsu.com"
+    } 
+  ],
+  "bin": {
+    "http-server": "./bin/http-server"
+  },
+  "scripts": {
+    "start": "node ./bin/http-server",
+    "test": "vows --spec --isolate",
+    "predeploy": "echo This will be run before deploying the app",
+    "postdeploy": "echo This will be run after deploying the app"
+  },
+  "main": "./lib/http-server",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodejitsu/http-server.git"
+  },
+  "keywords": [
+    "cli",
+    "http",
+    "server"
+  ],
+  "dependencies" : {
+    "colors"   :  "*",
+    "flatiron" :  "0.1.x",
+    "optimist" :  "0.2.x",
+    "union"    :  "0.1.x",
+    "ecstatic" :  "0.1.x",
+    "plates"   :  "https://github.com/flatiron/plates/tarball/master"
+  },
+  "analyze": false,
+  "devDependencies": {
+    "vows"    :  "0.5.x",
+    "request" :  "2.1.x"
+  },
+  "bundledDependencies": [
+    "union",
+    "ecstatic"
+  ],  
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
+    </div>
+    <div id="sample2" style="display:none">
+{
+    "name": "pilotfish",
+    "description": "Pilotfish, a toolkit for improving user experience",
+    "version": "0.15.0",
+    "keywords": [
+        "user experience",
+        "user interface",
+        "ux",
+        "ui"
+    ],
+    "author": { "name" : "Nick Sullivan" },
+    "maintainers": [
+        {
+            "name": "Nick Sullivan",
+            "email": "nick at my last name, with a flock, dot com",
+            "web": "http://nick.sullivanflock.com"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Nick Sullivan",
+            "email": "nick at my last name, with a flock, dot com",
+            "web": "http://nick.sullivanflock.com"
+        }
+    ],
+    "bugs": "https://github.com/pilotfish/pilotfish/issues",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/pilotfish/pilotfish/blob/master/LICENSE"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git://github.com/pilotfish/pilotfish.git"
+        }
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "connect": "~2.4.6",
+        "docco": "~0.4.0",
+        "grunt": "~0.3.15",
+        "grunt-casperjs": "git+https://github.com/gorillamania/grunt-casperjs.git#master",
+        "grunt-spell": "~0.1.1",
+        "prompt": "~0.2.7"
+    },
+    "homepage": "http://pilotfish.io",
+    "os": [],
+    "cpu": [],
+    "engines": {
+        "node": ">=0.8"
+    },
+    "scripts": {
+      "test": "grunt test"
+    }
+}
+    </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script>
