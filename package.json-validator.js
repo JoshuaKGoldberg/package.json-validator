@@ -1,18 +1,22 @@
 /* Parse the incoming string as JSON, validate it against the spec for package.json
  * See README for more details
  */
-var PJV = {};
+var PJV = {
+    packageFormat: /^[a-z0-9][a-z0-9\.\-_]+$/,
+    versionFormat: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/,
+    urlFormat    : /^https*:\/\/[a-z.\-0-9]+/
+};
 
 PJV.getSpecMap = function(specName) {
 
     if (specName == "npm") {
         // https://github.com/isaacs/npm/blob/c1f44603019651b99f7bfd129fa89e2c09e8f369/doc/cli/json.md
         return {
-            "name":         {"type": "string", required: true, format: /^[a-z0-9][a-z0-9\.\-_]+$/},
-            "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
+            "name":         {"type": "string", required: true, format: PJV.packageFormat},
+            "version":      {"type": "string", required: true, format: PJV.versionFormat},
             "description":  {"type": "string", recommended: true},
             "keywords":     {"type": "array", recommended: true},
-            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
+            "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
             "bugs":         {"type": "string", recommended: true}, // XXX bugs can be a string or an object
             "author":       {"type": "object", required: true},
             "maintainers":  {"type": "object", recommended: true},
@@ -25,10 +29,11 @@ PJV.getSpecMap = function(specName) {
             "repository":   {"type": "object"},
             "scripts":      {"type": "object"},
             "config":       {"type": "object"},
-            "dependencies": {"type": "object"},
-            "devDependencies": {"type": "object"},
-            "bundledDependencies": {"type": "object"},
-            "optionalDependencies": {"type": "object"},
+            "dependencies": {"type": "object", validate: PJV.validateDependencies},
+            "devDependencies": {"type": "object", validate: PJV.validateDependencies},
+            "bundledDependencies": {"type": "array"},
+            "bundleDependencies": {"type": "array"},
+            "optionalDependencies": {"type": "object", validate: PJV.validateDependencies},
             "engines":      {"type": "object"},
             "engineStrict": {"type": "boolean"},
             "os":           {"type": "array"},
@@ -41,18 +46,18 @@ PJV.getSpecMap = function(specName) {
     } else if (specName == "commonjs_1.0") {
         // http://wiki.commonjs.org/wiki/Packages/1.0
         return {
-            "name":         {"type": "string", required: true, format: /^[a-z0-9\.\-_]+$/},
+            "name":         {"type": "string", required: true, format: PJV.packageFormat},
             "description":  {"type": "string", required: true},
-            "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
+            "version":      {"type": "string", required: true, format: PJV.versionFormat},
             "keywords":     {"type": "array", required: true},
             "maintainers":  {"type": "array", required: true},
             "contributors": {"type": "array", required: true},
             "bugs":         {"type": "string", required: true}, // XXX bugs can be a string or an object
             "licenses":     {"type": "array", required: true},
             "repositories": {"type": "object", required: true},
-            "dependencies": {"type": "object", required: true},
+            "dependencies": {"type": "object", required: true, validate: PJV.validateDependencies},
 
-            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
+            "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
             "os":           {"type": "array"},
             "cpu":          {"type": "array"},
             "engine":       {"type": "array"},
@@ -66,8 +71,8 @@ PJV.getSpecMap = function(specName) {
     } else if (specName == "commonjs_1.1") {
         // http://wiki.commonjs.org/wiki/Packages/1.1
         return {
-            "name":         {"type": "string", required: true, format: /^[a-z0-9\.\-_]+$/},
-            "version":      {"type": "string", required: true, format: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/},
+            "name":         {"type": "string", required: true, format: PJV.packageFormat},
+            "version":      {"type": "string", required: true, format: PJV.versionFormat},
             "main":         {"type": "array", required: true},
             "directories":  {"type": "object", required: true},
 
@@ -78,8 +83,8 @@ PJV.getSpecMap = function(specName) {
             "keywords":     {"type": "array"},
             "repositories": {"type": "array"},
             "contributors": {"type": "array"},
-            "dependencies": {"type": "object"},
-            "homepage":     {"type": "string", recommended: true, format: /^http:\/\/[a-z.\-0-9]+/},
+            "dependencies": {"type": "object", validate: PJV.validateDependencies},
+            "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
             "os":           {"type": "array"},
             "cpu":          {"type": "array"},
             "engine":       {"type": "array"},
@@ -150,6 +155,12 @@ PJV.validatePackage = function(data, specName, options) {
         if (field.format && !field.format.test(parsed[name])) {
             errors.push("Value for field " + name + ", " + parsed[name] + " does not match format: " + field.format.toString());
         }
+
+        // Validation function check
+        if (typeof field.validate == "function") {
+            // Validation is expected to return an array of errors (empty means no errors)
+            errors = errors.concat(field.validate(parsed[name]));
+        }
     }
 
     out.valid = errors.length > 0 ? false : true;
@@ -165,3 +176,30 @@ PJV.validatePackage = function(data, specName, options) {
 
     return out;
 };
+
+// Validates dependencies, making sure the object is a set of key value pairs
+// with package names and versions
+PJV.validateDependencies = function(deps) {
+    var errors = [];
+    for (var pkg in deps) {
+        if (! PJV.packageFormat.test(pkg)) {
+            errors.push("Invalid dependency package name: " + pkg);
+        }
+
+        if (!PJV.isValidVersionRange(deps[pkg])) {
+            errors.push("Invalid version range for dependency " + pkg + ": " + deps[pkg]);
+        }
+    }
+    return errors;
+};
+
+PJV.isValidVersionRange = function(v) {
+    // https://github.com/isaacs/npm/blob/master/doc/cli/json.md#dependencies
+    return  (/^[<>=~]{0,2}[0-9.x]+/).test(v) ||
+            PJV.urlFormat.test(v) ||
+            v == "*" ||
+            v === "" ||
+            v.indexOf("git") === 0 ||
+            false;
+};
+
