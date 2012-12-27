@@ -27,7 +27,7 @@ PJV.getSpecMap = function(specName) {
             "bin":          {"type": "object"},
             "man":          {"type": "object"},
             "directories":  {"type": "object"},
-            "repository":   {"type": "object"},
+            "repository":   {"type": "object", recommended: true, validate: PJV.validateUrlTypes},
             "scripts":      {"type": "object"},
             "config":       {"type": "object"},
             "dependencies": {"type": "object", validate: PJV.validateDependencies},
@@ -54,8 +54,8 @@ PJV.getSpecMap = function(specName) {
             "maintainers":  {"type": "array", required: true, validate: PJV.validatePeople},
             "contributors": {"type": "array", required: true, validate: PJV.validatePeople},
             "bugs":         {"type": "string", required: true, validate: PJV.validateUrlOrMailto},
-            "licenses":     {"type": "array", required: true},
-            "repositories": {"type": "object", required: true},
+            "licenses":     {"type": "array", required: true, validate: PJV.validateUrlTypes},
+            "repositories": {"type": "object", required: true, validate: PJV.validateUrlTypes},
             "dependencies": {"type": "object", required: true, validate: PJV.validateDependencies},
 
             "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
@@ -79,10 +79,10 @@ PJV.getSpecMap = function(specName) {
 
             "maintainers":  {"type": "array", recommended: true, validate: PJV.validatePeople},
             "description":  {"type": "string", recommended: true},
-            "licenses":     {"type": "array", recommended: true},
+            "licenses":     {"type": "array", recommended: true, validate: PJV.validateUrlTypes},
             "bugs":         {"type": "string", recommended: true, validate: PJV.validateUrlOrMailto},
             "keywords":     {"type": "array"},
-            "repositories": {"type": "array"},
+            "repositories": {"type": "array", validate: PJV.validateUrlTypes},
             "contributors": {"type": "array", validate: PJV.validatePeople},
             "dependencies": {"type": "object", validate: PJV.validateDependencies},
             "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
@@ -292,5 +292,40 @@ PJV.validatePeople = function(name, obj) {
     } else {
         errors.push("Type for field " + name + " should be a string or an object");
     }
+    return errors;
+};
+
+/* Format for license(s) and repository(s):
+ * url as a string
+ * or
+ * object with "type" and "url"
+ * or
+ * array of objects with "type" and "url"
+ */
+PJV.validateUrlTypes = function(name, obj) {
+    var errors = [];
+    function validateUrlType(obj) {
+        if (!obj.type) {
+            errors.push(name + " field should have type");
+        }
+        if (!obj.url) {
+            errors.push(name + " field should have url");
+        }
+    }
+
+    if (typeof obj == "string") {
+        if (! PJV.urlFormat.test(obj)) {
+            errors.push("Url not valid for " + name + ": " + obj);
+        }
+    } else if (obj instanceof Array) {
+        for (var i = 0; i < obj.length; i++) {
+            validateUrlType(obj[i]);
+        }
+    } else if (typeof obj == "object") {
+        validateUrlType(obj);
+    } else {
+        errors.push("Type for field " + name + " should be a string or an object");
+    }
+
     return errors;
 };
