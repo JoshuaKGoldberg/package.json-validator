@@ -11,6 +11,7 @@ Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.c
 * Choice between the type of validation
 * An API
 * A node based command line interface, that would allow for plugins for editors
+* Unit tests
 
 
 # Issues/Requests

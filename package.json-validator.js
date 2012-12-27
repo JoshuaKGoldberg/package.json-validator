@@ -4,7 +4,8 @@
 var PJV = {
     packageFormat: /^[a-z0-9][a-z0-9\.\-_]+$/,
     versionFormat: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/,
-    urlFormat    : /^https*:\/\/[a-z.\-0-9]+/
+    urlFormat    : /^https*:\/\/[a-z.\-0-9]+/,
+    emailFormat  : /\S+@\S+/ // I know this isn't thorough. it's not supposed to be.
 };
 
 PJV.getSpecMap = function(specName) {
@@ -17,10 +18,10 @@ PJV.getSpecMap = function(specName) {
             "description":  {"type": "string", recommended: true},
             "keywords":     {"type": "array", recommended: true},
             "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
-            "bugs":         {"type": "string", recommended: true}, // XXX bugs can be a string or an object
-            "author":       {"type": "object", required: true},
-            "maintainers":  {"type": "object", recommended: true},
-            "contributors": {"type": "object"},
+            "bugs":         {recommended: true, validate: PJV.validateUrlOrMailto},
+            "author":       {required: true, validate: PJV.validatePeople},
+            "maintainers":  {recommended: true, validate: PJV.validatePeople},
+            "contributors": {validate: PJV.validatePeople},
             "files":        {"type": "array"},
             "main":         {"type": "array"},
             "bin":          {"type": "object"},
@@ -50,9 +51,9 @@ PJV.getSpecMap = function(specName) {
             "description":  {"type": "string", required: true},
             "version":      {"type": "string", required: true, format: PJV.versionFormat},
             "keywords":     {"type": "array", required: true},
-            "maintainers":  {"type": "array", required: true},
-            "contributors": {"type": "array", required: true},
-            "bugs":         {"type": "string", required: true}, // XXX bugs can be a string or an object
+            "maintainers":  {"type": "array", required: true, validate: PJV.validatePeople},
+            "contributors": {"type": "array", required: true, validate: PJV.validatePeople},
+            "bugs":         {"type": "string", required: true, validate: PJV.validateUrlOrMailto},
             "licenses":     {"type": "array", required: true},
             "repositories": {"type": "object", required: true},
             "dependencies": {"type": "object", required: true, validate: PJV.validateDependencies},
@@ -76,13 +77,13 @@ PJV.getSpecMap = function(specName) {
             "main":         {"type": "array", required: true},
             "directories":  {"type": "object", required: true},
 
-            "maintainers":  {"type": "array", recommended: true},
+            "maintainers":  {"type": "array", recommended: true, validate: PJV.validatePeople},
             "description":  {"type": "string", recommended: true},
             "licenses":     {"type": "array", recommended: true},
-            "bugs":         {"type": "string", recommended: true},
+            "bugs":         {"type": "string", recommended: true, validate: PJV.validateUrlOrMailto},
             "keywords":     {"type": "array"},
             "repositories": {"type": "array"},
-            "contributors": {"type": "array"},
+            "contributors": {"type": "array", validate: PJV.validatePeople},
             "dependencies": {"type": "object", validate: PJV.validateDependencies},
             "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
             "os":           {"type": "array"},
@@ -145,10 +146,12 @@ PJV.validatePackage = function(data, specName, options) {
         }
 
         // Type checking
-        if ((field.type == "array" && !parsed[name] instanceof Array)
-                || (field.type !="array" && typeof parsed[name] != field.type) ) {
-            errors.push("Type for field " + name + ", was expected to be " + field.type + ", not " + typeof parsed[name]);
-            continue;
+        if (field.type) {
+            if ((field.type == "array" && !parsed[name] instanceof Array)
+                    || (field.type !="array" && typeof parsed[name] != field.type) ) {
+                errors.push("Type for field " + name + ", was expected to be " + field.type + ", not " + typeof parsed[name]);
+                continue;
+            }
         }
 
         // Regexp format check
@@ -159,7 +162,7 @@ PJV.validatePackage = function(data, specName, options) {
         // Validation function check
         if (typeof field.validate == "function") {
             // Validation is expected to return an array of errors (empty means no errors)
-            errors = errors.concat(field.validate(parsed[name]));
+            errors = errors.concat(field.validate(name, parsed[name]));
         }
     }
 
@@ -179,7 +182,7 @@ PJV.validatePackage = function(data, specName, options) {
 
 // Validates dependencies, making sure the object is a set of key value pairs
 // with package names and versions
-PJV.validateDependencies = function(deps) {
+PJV.validateDependencies = function(name, deps) {
     var errors = [];
     for (var pkg in deps) {
         if (! PJV.packageFormat.test(pkg)) {
@@ -203,3 +206,91 @@ PJV.isValidVersionRange = function(v) {
             false;
 };
 
+// Allows for a url as a string, or an object that looks like:
+/*
+{
+    "url" : "http://github.com/owner/project/issues",
+    "email" : "project@hostname.com"
+}
+or
+{
+    "mail": "dev@example.com",
+    "web": "http://www.example.com/bugs"
+}
+*/
+PJV.validateUrlOrMailto = function(name, obj) {
+    var errors = [];
+    if (typeof obj == "string") {
+        if ( !PJV.urlFormat.test(obj) && !PJV.emailFormat.test(obj)) {
+            errors.push(name + " should be an email or a url");
+        }
+    } else if (typeof obj == "object") {
+        if (!obj.email && !obj.url && !obj.mail && !obj.web) {
+            errors.push(name + " field should have one of: email, url, mail, web");
+        } else {
+            if (obj.email && !PJV.emailFormat.test(obj.email)){
+                errors.push("Email not valid for " + name + ": " + obj.email);
+            }
+            if (obj.mail && !PJV.emailFormat.test(obj.mail)){
+                errors.push("Email not valid for " + name + ": " + obj.mail);
+            }
+            if (obj.url && !PJV.urlFormat.test(obj.url)){
+                errors.push("Url not valid for " + name + ": " + obj.url);
+            }
+            if (obj.web && !PJV.urlFormat.test(obj.web)){
+                errors.push("Url not valid for " + name + ": " + obj.web);
+            }
+        }
+    } else {
+        errors.push("Type for field " + name + " should be a string or an object");
+    }
+    return errors;
+};
+
+/* Validate 'people' fields, which can be an object like this:
+
+{ "name" : "Barney Rubble",
+  "email" : "b@rubble.com",
+  "url" : "http://barnyrubble.tumblr.com/"
+}
+
+Or asingle string like this:
+"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)
+
+*/
+PJV.validatePeople = function(name, obj) {
+    var errors = [];
+
+    function validatePerson(obj) {
+        if (!obj.name) {
+            errors.push(name + " field should have name");
+        }
+        if (!obj.email && !obj.url) {
+            errors.push(name + " field should have email or url");
+        }
+        if (obj.email && !PJV.emailFormat.test(obj.email)){
+            errors.push("Email not valid for " + name + ": " + obj.email);
+        }
+        if (obj.url && !PJV.urlFormat.test(obj.url)){
+            errors.push("Url not valid for " + name + ": " + obj.url);
+        }
+        if (obj.web && !PJV.urlFormat.test(obj.web)){
+            errors.push("Url not valid for " + name + ": " + obj.web);
+        }
+    }
+
+    if (typeof obj == "string") {
+        if ((/[^<]+<\S+@\S+>/).test(obj)){
+            errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
+        }
+    } else if (obj instanceof Array) {
+        for (var i = 0; i < obj.length; i++) {
+            validatePerson(obj[i]);
+        }
+    } else if (typeof obj == "object") {
+        validatePerson(obj);
+    } else {
+        errors.push("Type for field " + name + " should be a string or an object");
+    }
+    return errors;
+};
