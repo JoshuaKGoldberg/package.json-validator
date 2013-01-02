@@ -2,6 +2,7 @@
 <html>
     <head>
     <title>Package.json validator</title>
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
     <script src="package.json-validator.js"></script>
     <style type="text/css">
         .container { width: 600px; }
@@ -23,16 +24,28 @@
             <br />
             <textarea id="incoming"></textarea>
             <br />
-            Validate against:
+            Validate against:<br />
+            <label class="radio inline">
             <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
+        </label>
+            <label class="radio inline">
             <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
+        </label>
+            <label class="radio inline">
             <input type="radio" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
+        </label>
 
             <p>
-            Verbosity:
-            <input checked="true" type="checkbox" disabled="true">Errors
-            <input checked="true" type="checkbox" id="warnings">Warnings
-            <input checked="true" type="checkbox" id="recommendations">Recommendations
+            Verbosity:<br />
+            <label class="checkbox inline">
+                <input checked="true" type="checkbox" disabled="true">Errors
+            </label>
+            <label class="checkbox inline">
+                <input checked="true" type="checkbox" id="warnings">Warnings
+            </label>
+            <label class="checkbox inline">
+                <input checked="true" type="checkbox" id="recommendations">Recommendations
+            </label>
             <p>
             <input id="validate" type="button" value="Validate"/>
         </div>
