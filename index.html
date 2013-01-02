@@ -17,10 +17,14 @@
             <small>
             This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the specifications, letting you know if you have a valid file. The validation reports required fields that you MUST have, warns for fields that you SHOULD have, and recommends optional fields that you COULD have.
             </small>
-            <p>
-            <b>Enter the contents of your package.json file</b>: - Samples: 
-            <a href='javascript:$("#incoming").val($("#sample1").html());'>http-server</a> /
-            <a href='javascript:$("#incoming").val($("#sample2").html());'>pilotfish</a> 
+            <br />
+            <br />
+            <b>Enter the contents of your package.json file</b>
+            <div style="float:right">
+                Samples: 
+                <a href='javascript:$("#incoming").val($("#sample1").html());'>http-server</a> /
+                <a href='javascript:$("#incoming").val($("#sample2").html());'>pilotfish</a> 
+            </div>
             <br />
             <textarea id="incoming"></textarea>
             <br />
@@ -35,7 +39,8 @@
             <input type="radio" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
         </label>
 
-            <p>
+        <br />
+        <br />
             Verbosity:<br />
             <label class="checkbox inline">
                 <input checked="true" type="checkbox" disabled="true">Errors
@@ -46,7 +51,8 @@
             <label class="checkbox inline">
                 <input checked="true" type="checkbox" id="recommendations">Recommendations
             </label>
-            <p>
+        <br />
+        <br />
             <input id="validate" type="button" value="Validate"/>
         </div>
 
@@ -54,6 +60,10 @@
             Results:
             <textarea id="outgoing"></textarea>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
 
         <footer><small>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></small></footer>
 
