@@ -3,6 +3,7 @@
     <head>
     <title>Package.json validator</title>
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="package.json-validator.js"></script>
     <script src="github.js"></script>
     <script src="base64.js"></script>
@@ -17,53 +18,58 @@
         <div>
             <h2>Package.json validation</h2>
             <small>
-            This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the specifications, letting you know if you have a valid file. The validation reports required fields that you MUST have, warns for fields that you SHOULD have, and recommends optional fields that you COULD have.
+            This tool verifies the contents of <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json">package.json</a> files against the specifications, letting you know about required fields that you MUST have, warnings for fields that you SHOULD have, and recommendations for optional fields that you COULD have.
             </small>
             <br />
             <br />
             <b>Enter a github repo</b><br />
             <div class="input-append">
-                <input type="text" id="githubrepo" placeholder="https://github.com/$owner/$repo"/>
+                <input class="input-xlarge" type="text" id="githubrepo" placeholder="https://github.com/$owner/$repo"/>
                 <button id="fetch" class="btn" type="button">Fetch</button>
             </div>
             <br />
-            <br />
             <b>OR, enter the contents of a package.json file</b>
             <div style="float:right">
+                <small>
                 Samples: 
                 <a href='javascript:$("#incoming").val($("#sample1").html());'>http-server</a> /
                 <a href='javascript:$("#incoming").val($("#sample2").html());'>pilotfish</a> 
+                </small>
             </div>
             <br />
             <textarea id="incoming"></textarea>
 
-            <br />
-            Validate against:<br />
-            <label class="radio inline">
-            <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
-        </label>
-            <label class="radio inline">
-            <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
-        </label>
-            <label class="radio inline">
-            <input type="radio" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
-        </label>
+            <button id="options-button" type="button" class="pull-right btn btn-link"><span class="show-hide">Show</span> <span class="show-hide" style="display:none">Hide</span> Options</button>
 
-        <br />
-        <br />
-            Verbosity:<br />
-            <label class="checkbox inline">
-                <input checked="true" type="checkbox" disabled="true">Errors
-            </label>
-            <label class="checkbox inline">
-                <input checked="true" type="checkbox" id="warnings">Warnings
-            </label>
-            <label class="checkbox inline">
-                <input checked="true" type="checkbox" id="recommendations">Recommendations
-            </label>
-        <br />
-        <br />
-            <input id="validate" type="button" value="Validate"/>
+            <div id="options" style="display:none">
+                Validate against:<br />
+                <label class="radio inline">
+                <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
+                </label>
+                <label class="radio inline">
+                <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
+                </label>
+                <label class="radio inline">
+                <input type="radio" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
+                </label>
+
+                <br />
+                <br />
+
+                Verbosity:<br />
+                <label class="checkbox inline">
+                    <input checked="true" type="checkbox" disabled="true">Errors
+                </label>
+                <label class="checkbox inline">
+                    <input checked="true" type="checkbox" id="warnings">Warnings
+                </label>
+                <label class="checkbox inline">
+                    <input checked="true" type="checkbox" id="recommendations">Recommendations
+                </label>
+            <br />
+            <br />
+            </div>
+            <button id="validate" type="button" class="btn btn-success">Validate</button>
         </div>
 
         <div id="results" style="display:none">
@@ -190,8 +196,14 @@
 }
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script>
+        // Show/hide options
+        $('#options-button').click(function() {
+            $("#options").slideToggle();
+            $(this).find(".show-hide").toggle();
+        });
+
+        // Github fetching
         function githubFetch(){
             var url = $("#githubrepo").val();
             if (url) {
@@ -203,6 +215,7 @@
         }
         $("#fetch").click(githubFetch);
 
+        // Handle the form
         $("#validate").click(function() {
             $("#outgoing").val("");
             var data = $("textarea").val(),
