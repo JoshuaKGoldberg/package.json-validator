@@ -3,10 +3,6 @@
     <head>
     <title>Package.json validator</title>
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script src="package.json-validator.js"></script>
-    <script src="github.js"></script>
-    <script src="base64.js"></script>
     <style type="text/css">
         .container { width: 600px; }
         textarea { width: 590px; height: 200px; }
@@ -196,6 +192,10 @@
 }
     </div>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="package.json-validator.js"></script>
+    <script src="github.js"></script>
+    <script src="base64.js"></script>
     <script>
         // Show/hide options
         $('#options-button').click(function() {
@@ -210,6 +210,7 @@
                 $("textarea").val("Fetching from github...");
                 Github.fetchPackageJson(url, function(contents) {
                     $("textarea").val(contents);
+                    $("#validate").trigger("click");
                 });
             }
         }
