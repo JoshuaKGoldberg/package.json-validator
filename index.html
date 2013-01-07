@@ -28,8 +28,8 @@
             <div style="float:right">
                 <small>
                 Samples: 
-                <a href='javascript:$("#incoming").val($("#sample1").html());'>http-server</a> /
-                <a href='javascript:$("#incoming").val($("#sample2").html());'>pilotfish</a> 
+                <a href='javascript:sampleRepo("https://github.com/krux/postscribe")'>PostScribe</a> /
+                <a href='javascript:sampleRepo("https://github.com/pilotfish/pilotfish")'>Pilotfish</a> 
                 </small>
             </div>
             <br />
@@ -69,8 +69,9 @@
         </div>
 
         <div id="results" style="display:none">
-            Results:
-            <textarea id="outgoing"></textarea>
+            <br />
+            <b>Results</b>:
+            <pre id="outgoing"></pre>
         </div>
         <br />
         <br />
@@ -80,117 +81,6 @@
         <footer><small>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></small></footer>
 
     </div><!--.container -->
-
-    <div id="sample1" style="display:none">
-{
-  "name": "http-server",
-  "preferGlobal": "true",
-  "version": "0.3.0",
-  "author": "Nodejitsu &lt;support@nodejitsu.com&gt;",
-  "description": "a simple zero-configuration command-line http server",
-  "contributors": [ 
-    {
-      "name": "Marak Squires",
-      "email": "marak@nodejitsu.com"
-    } 
-  ],
-  "bin": {
-    "http-server": "./bin/http-server"
-  },
-  "scripts": {
-    "start": "node ./bin/http-server",
-    "test": "vows --spec --isolate",
-    "predeploy": "echo This will be run before deploying the app",
-    "postdeploy": "echo This will be run after deploying the app"
-  },
-  "main": "./lib/http-server",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nodejitsu/http-server.git"
-  },
-  "keywords": [
-    "cli",
-    "http",
-    "server"
-  ],
-  "dependencies" : {
-    "colors"   :  "*",
-    "flatiron" :  "0.1.x",
-    "optimist" :  "0.2.x",
-    "union"    :  "0.1.x",
-    "ecstatic" :  "0.1.x",
-    "plates"   :  "https://github.com/flatiron/plates/tarball/master"
-  },
-  "analyze": false,
-  "devDependencies": {
-    "vows"    :  "0.5.x",
-    "request" :  "2.1.x"
-  },
-  "bundledDependencies": [
-    "union",
-    "ecstatic"
-  ],  
-  "license": "MIT",
-  "engines": {
-    "node": ">=0.6"
-  }
-}
-    </div>
-    <div id="sample2" style="display:none">
-{
-    "name": "pilotfish",
-    "description": "Pilotfish, a toolkit for improving user experience",
-    "version": "0.15.1",
-    "keywords": [
-        "user experience",
-        "user interface",
-        "ux",
-        "ui"
-    ],
-    "author": {
-        "name": "Nick Sullivan",
-        "email": "nick@sullivanflock.com",
-        "web": "http://nick.sullivanflock.com"
-    },
-    "maintainers": [
-        {
-            "name": "Nick Sullivan",
-            "email": "nick@sullivanflock.com",
-            "web": "http://nick.sullivanflock.com"
-        }
-    ],
-    "contributors": [
-        {
-            "name": "Nick Sullivan",
-            "email": "nick@sullivanflock.com",
-            "web": "http://nick.sullivanflock.com"
-        }
-    ],
-    "bugs": "https://github.com/pilotfish/pilotfish/issues",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/pilotfish/pilotfish.git"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "connect": "~2.4.6",
-        "docco": "~0.4.0",
-        "grunt": "~0.3.15",
-        "grunt-casperjs": "git+https://github.com/gorillamania/grunt-casperjs.git#master",
-        "grunt-spell": "~0.1.1",
-        "prompt": "~0.2.7"
-    },
-    "homepage": "http://pilotfish.io",
-    "os": [],
-    "cpu": [],
-    "engines": {
-        "node": ">=0.8"
-    },
-    "scripts": {
-      "test": "grunt test"
-    }
-}
-    </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="package.json-validator.js"></script>
@@ -202,6 +92,7 @@
             $("#options").slideToggle();
             $(this).find(".show-hide").toggle();
         });
+
 
         // Github fetching
         function githubFetch(){
@@ -218,16 +109,22 @@
 
         // Handle the form
         $("#validate").click(function() {
-            $("#outgoing").val("");
+            $("#outgoing").fadeOut().empty();
             var data = $("textarea").val(),
                 options = {
                     "warnings": $("#warnings").prop("checked"),
                     "recommendations": $("#recommendations").prop("checked")
                 },
                 results = PJV.validatePackage(data, $("input[name=spec]:checked").val(), options);
-            $("#outgoing").val(JSON.stringify(results, null, 2));
+            $("#outgoing").stop().html(JSON.stringify(results, null, 3)).fadeIn();
             $("#results").fadeIn();
         });
+
+        // Handle samples
+        function sampleRepo(url) {
+            $("#githubrepo").val(url);
+            githubFetch();
+        }
     </script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
