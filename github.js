@@ -18,9 +18,13 @@
         jQuery.ajax(apiUrl, {
             dataType: 'jsonp',
             success: function(resp) {
-                console.log("data.content", resp.data.content);
+                if (! resp.data || ! resp.data.content) {
+                    callback("No package.json found");
+                    return;
+                }
+
                 // Data comes back base64 encoded
-                var decoded = Base64.decode(resp.data.content);
+                var decoded = window.Base64.decode(resp.data.content);
                 callback(decoded);
             },
             error: function(data) {
