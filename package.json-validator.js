@@ -8,7 +8,7 @@ var PJV = {
     emailFormat  : /\S+@\S+/ // I know this isn't thorough. it's not supposed to be.
 };
 
-PJV.getSpecMap = function(specName) {
+PJV.getSpecMap = function (specName) {
 
     if (specName == "npm") {
         // https://github.com/isaacs/npm/blob/c1f44603019651b99f7bfd129fa89e2c09e8f369/doc/cli/json.md
@@ -41,7 +41,7 @@ PJV.getSpecMap = function(specName) {
             "cpu":          {"type": "array"},
             "preferGlobal": {"type": "boolean"},
             "private":      {"type": "boolean"},
-            "publishConfig":{"type": "object"}
+            "publishConfig": {"type": "object"}
         };
 
     } else if (specName == "commonjs_1.0") {
@@ -103,7 +103,7 @@ PJV.getSpecMap = function(specName) {
 
 };
 
-PJV.validatePackage = function(data, specName, options) {
+PJV.validatePackage = function (data, specName, options) {
     var parsed;
     var out = {"valid": false};
     if (!data) {
@@ -131,7 +131,7 @@ PJV.validatePackage = function(data, specName, options) {
         warnings = [],
         recommendations = [];
 
-     for (var name in map) {
+    for (var name in map) {
         var field = map[name];
 
         if (typeof parsed[name] == "undefined") {
@@ -148,7 +148,7 @@ PJV.validatePackage = function(data, specName, options) {
         // Type checking
         if (field.type) {
             if ((field.type == "array" && !parsed[name] instanceof Array)
-                    || (field.type !="array" && typeof parsed[name] != field.type) ) {
+                    || (field.type != "array" && typeof parsed[name] != field.type)) {
                 errors.push("Type for field " + name + ", was expected to be " + field.type + ", not " + typeof parsed[name]);
                 continue;
             }
@@ -170,10 +170,10 @@ PJV.validatePackage = function(data, specName, options) {
     if (errors.length > 0) {
         out.errors = errors;
     }
-    if (options.warnings !== false && warnings.length > 0 ) {
+    if (options.warnings !== false && warnings.length > 0) {
         out.warnings = warnings;
     }
-    if (options.recommendations !== false && recommendations.length > 0 ) {
+    if (options.recommendations !== false && recommendations.length > 0) {
         out.recommendations = recommendations;
     }
 
@@ -182,7 +182,7 @@ PJV.validatePackage = function(data, specName, options) {
 
 // Validates dependencies, making sure the object is a set of key value pairs
 // with package names and versions
-PJV.validateDependencies = function(name, deps) {
+PJV.validateDependencies = function (name, deps) {
     var errors = [];
     for (var pkg in deps) {
         if (! PJV.packageFormat.test(pkg)) {
@@ -196,7 +196,7 @@ PJV.validateDependencies = function(name, deps) {
     return errors;
 };
 
-PJV.isValidVersionRange = function(v) {
+PJV.isValidVersionRange = function (v) {
     // https://github.com/isaacs/npm/blob/master/doc/cli/json.md#dependencies
     return  (/^[<>=~]{0,2}[0-9.x]+/).test(v) ||
             PJV.urlFormat.test(v) ||
@@ -218,26 +218,26 @@ or
     "web": "http://www.example.com/bugs"
 }
 */
-PJV.validateUrlOrMailto = function(name, obj) {
+PJV.validateUrlOrMailto = function (name, obj) {
     var errors = [];
     if (typeof obj == "string") {
-        if ( !PJV.urlFormat.test(obj) && !PJV.emailFormat.test(obj)) {
+        if (!PJV.urlFormat.test(obj) && !PJV.emailFormat.test(obj)) {
             errors.push(name + " should be an email or a url");
         }
     } else if (typeof obj == "object") {
         if (!obj.email && !obj.url && !obj.mail && !obj.web) {
             errors.push(name + " field should have one of: email, url, mail, web");
         } else {
-            if (obj.email && !PJV.emailFormat.test(obj.email)){
+            if (obj.email && !PJV.emailFormat.test(obj.email)) {
                 errors.push("Email not valid for " + name + ": " + obj.email);
             }
-            if (obj.mail && !PJV.emailFormat.test(obj.mail)){
+            if (obj.mail && !PJV.emailFormat.test(obj.mail)) {
                 errors.push("Email not valid for " + name + ": " + obj.mail);
             }
-            if (obj.url && !PJV.urlFormat.test(obj.url)){
+            if (obj.url && !PJV.urlFormat.test(obj.url)) {
                 errors.push("Url not valid for " + name + ": " + obj.url);
             }
-            if (obj.web && !PJV.urlFormat.test(obj.web)){
+            if (obj.web && !PJV.urlFormat.test(obj.web)) {
                 errors.push("Url not valid for " + name + ": " + obj.web);
             }
         }
@@ -258,7 +258,7 @@ Or asingle string like this:
 "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)
 
 */
-PJV.validatePeople = function(name, obj) {
+PJV.validatePeople = function (name, obj) {
     var errors = [];
 
     function validatePerson(obj) {
@@ -268,19 +268,19 @@ PJV.validatePeople = function(name, obj) {
         if (!obj.email && !obj.url) {
             errors.push(name + " field should have email or url");
         }
-        if (obj.email && !PJV.emailFormat.test(obj.email)){
+        if (obj.email && !PJV.emailFormat.test(obj.email)) {
             errors.push("Email not valid for " + name + ": " + obj.email);
         }
-        if (obj.url && !PJV.urlFormat.test(obj.url)){
+        if (obj.url && !PJV.urlFormat.test(obj.url)) {
             errors.push("Url not valid for " + name + ": " + obj.url);
         }
-        if (obj.web && !PJV.urlFormat.test(obj.web)){
+        if (obj.web && !PJV.urlFormat.test(obj.web)) {
             errors.push("Url not valid for " + name + ": " + obj.web);
         }
     }
 
     if (typeof obj == "string") {
-        if ((/[^<]+<\S+@\S+>/).test(obj)){
+        if ((/[^<]+<\S+@\S+>/).test(obj)) {
             errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
         }
     } else if (obj instanceof Array) {
@@ -302,7 +302,7 @@ PJV.validatePeople = function(name, obj) {
  * or
  * array of objects with "type" and "url"
  */
-PJV.validateUrlTypes = function(name, obj) {
+PJV.validateUrlTypes = function (name, obj) {
     var errors = [];
     function validateUrlType(obj) {
         if (!obj.type) {
