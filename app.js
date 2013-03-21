@@ -22,13 +22,16 @@ window.PackageCtrl = function($scope, $http) {
 
         var re = /github\.com\/([^\/]+)\/([^\/]+)/,
             m  = re.exec($scope.data.github);
-            if (!m ) {
-                $scope.data.results = "Invalid github url.";
-                return;
-            }
 
-            var owner = m[1], repo = m[2],
-                apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/contents/package.json?callback=JSON_CALLBACK";
+        if (!m ) {
+            $scope.data.results = "Invalid github url.";
+            return;
+        }
+
+        var owner = m[1], repo = m[2],
+            apiUrl = "https://api.github.com/repos/" + owner + "/" + repo + "/contents/package.json?callback=JSON_CALLBACK";
+
+        $scope.data.results = "Fetching from github...";
 
         $http.jsonp(apiUrl).success(function(resp) {
             $scope.data.results = window.Base64.decode(resp.data.content);

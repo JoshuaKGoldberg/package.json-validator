@@ -110,6 +110,10 @@ PJV.validatePackage = function (data, specName, options) {
         out.critical = {"Empty JSON": "No data to parse"};
         return out;
     }
+    if (data[0] != "{") {
+        // It's just a string
+        return data;
+    }
     try {
         parsed = JSON.parse(data);
     } catch (e) {
