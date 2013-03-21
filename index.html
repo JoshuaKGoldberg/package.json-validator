@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="pjv">
     <head>
     <title>Package.json validator</title>
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
@@ -10,7 +10,9 @@
 </head>
 <body>
     <a href="https://github.com/gorillamania/package.json-validator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-    <div class="container">
+
+    <div class="container" ng-controller="PackageCtrl">
+    <form name="myform" class="css-form">
         <div>
             <h2>Package.json validator</h2>
             <small>
@@ -33,7 +35,7 @@
                 </small>
             </div>
             <br />
-            <textarea id="incoming"></textarea>
+            <textarea ng-model="results" id="incoming"></textarea>
 
             <button id="options-button" type="button" class="pull-right btn btn-link"><span class="show-hide">Show</span> <span class="show-hide" style="display:none">Hide</span> Options</button>
 
@@ -68,10 +70,10 @@
             <button id="validate" type="button" class="btn btn-success">Validate</button>
         </div>
 
-        <div id="results" style="display:none">
+        <div id="results" ng-show='results'>
             <br />
             <b>Results</b>:
-            <pre id="outgoing"></pre>
+            <pre id="outgoing">{{results | validateJson | json}}</pre>
         </div>
         <br />
         <br />
@@ -80,52 +82,13 @@
 
         <footer><small>This tool created to make your life easier by <a href="http://creationeer.me/">Nick Sullivan, Creationeer</a></small></footer>
 
+        </form>
     </div><!--.container -->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script src="package.json-validator.js"></script>
-    <script src="github.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+    <script src="PJV.js"></script>
     <script src="base64.js"></script>
-    <script>
-        // Show/hide options
-        $('#options-button').click(function() {
-            $("#options").slideToggle();
-            $(this).find(".show-hide").toggle();
-        });
-
-
-        // Github fetching
-        function githubFetch(){
-            var url = $("#githubrepo").val();
-            if (url) {
-                $("textarea").val("Fetching from github...");
-                Github.fetchPackageJson(url, function(contents) {
-                    $("textarea").val(contents);
-                    $("#validate").trigger("click");
-                });
-            }
-        }
-        $("#fetch").click(githubFetch);
-
-        // Handle the form
-        $("#validate").click(function() {
-            $("#outgoing").fadeOut().empty();
-            var data = $("textarea").val(),
-                options = {
-                    "warnings": $("#warnings").prop("checked"),
-                    "recommendations": $("#recommendations").prop("checked")
-                },
-                results = PJV.validatePackage(data, $("input[name=spec]:checked").val(), options);
-            $("#outgoing").stop().html(JSON.stringify(results, null, 3)).fadeIn();
-            $("#results").fadeIn();
-        });
-
-        // Handle samples
-        function sampleRepo(url) {
-            $("#githubrepo").val(url);
-            githubFetch();
-        }
-    </script>
+    <script src="app.js"></script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-37232148-1']);
