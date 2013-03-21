@@ -22,8 +22,8 @@
             <br />
             <b>Enter a github repo</b><br />
             <div class="input-append">
-                <input class="input-xlarge" type="text" id="githubrepo" placeholder="https://github.com/$owner/$repo"/>
-                <button id="fetch" class="btn" type="button">Fetch</button>
+                <input class="input-xlarge" ng-model="data.github" type="text" id="githubrepo" placeholder="https://github.com/$owner/$repo"/>
+                <button id="fetch" class="btn" type="button" ng-click="githubFetch()">Fetch</button>
             </div>
             <br />
             <b>OR, enter the contents of a package.json file</b>
