@@ -12,7 +12,7 @@
     <a href="https://github.com/gorillamania/package.json-validator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
     <div class="container" ng-controller="PackageCtrl">
-    <form name="myform" class="css-form">
+    <form>
         <div>
             <h2>Package.json validator</h2>
             <small>
@@ -35,20 +35,20 @@
                 </small>
             </div>
             <br />
-            <textarea ng-model="results" id="incoming"></textarea>
+            <textarea name="results" ng-model="data.results" id="incoming"></textarea>
 
-            <button id="options-button" type="button" class="pull-right btn btn-link"><span class="show-hide">Show</span> <span class="show-hide" style="display:none">Hide</span> Options</button>
+            <button id="options-button" type="button" class="pull-right btn btn-link" ng-init="advanced=false"><span class="show-hide">Show</span> <span class="show-hide" style="display:none">Hide</span> Options</button>
 
-            <div id="options" style="display:none">
+            <div id="options">
                 Validate against:<br />
                 <label class="radio inline">
-                <input type="radio" name="spec" value="npm" checked="true"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
+                <input type="radio" ng-model="data.spec" name="spec" value="npm"><a href="https://github.com/isaacs/npm/blob/master/doc/cli/json.md">NPM</a> (recommended)
                 </label>
                 <label class="radio inline">
-                <input type="radio" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
+                <input type="radio" ng-model="data.spec" name="spec" value="commonjs_1.0"><a href="http://wiki.commonjs.org/wiki/Packages/1.0">Packages 1.0</a>
                 </label>
                 <label class="radio inline">
-                <input type="radio" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
+                <input type="radio" ng-model="data.spec" name="spec" value="commonjs_1.1"><a href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages 1.1</a>
                 </label>
 
                 <br />
@@ -67,13 +67,12 @@
             <br />
             <br />
             </div>
-            <button id="validate" type="button" class="btn btn-success">Validate</button>
         </div>
 
-        <div id="results" ng-show='results'>
+        <div id="results" ng-show='data.results'>
             <br />
             <b>Results</b>:
-            <pre id="outgoing">{{results | validateJson | json}}</pre>
+            <pre id="outgoing">{{data.results | validateJson | json}}</pre>
         </div>
         <br />
         <br />
