@@ -4,15 +4,18 @@ angular.module('pjv', ['pjvFilters']);
 
 angular.module('pjvFilters', []).filter('validateJson', function() {
     return function(text) {
-        return PJV.validatePackage(text, this.data.spec, {});
+        return PJV.validatePackage(text, this.data.spec, this.data);
     };
 });
 
 // Angular JS controller
 window.PackageCtrl = function($scope) {
+    // Default values for the form
     $scope.data = {
         results : "",
-        spec : "npm"
+        spec : "npm",
+        warnings: true,
+        recommendations: true
     };
 };
 
