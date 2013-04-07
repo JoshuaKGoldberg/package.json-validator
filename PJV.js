@@ -19,21 +19,20 @@ PJV.getSpecMap = function (specName) {
             "keywords":     {"type": "array", recommended: true},
             "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
             "bugs":         {recommended: true, validate: PJV.validateUrlOrMailto},
+            "licenses":     {"type": "array", recommended: true, validate: PJV.validateUrlTypes},
             "author":       {required: true, validate: PJV.validatePeople},
-            "maintainers":  {recommended: true, validate: PJV.validatePeople},
             "contributors": {validate: PJV.validatePeople},
             "files":        {"type": "array"},
             "main":         {"type": "array"},
             "bin":          {"type": "object"},
             "man":          {"type": "object"},
             "directories":  {"type": "object"},
-            "repository":   {"type": "object", recommended: true, validate: PJV.validateUrlTypes},
+            "repository":   {"type": "object", recommended: true, validate: PJV.validateUrlTypes, or: "repositories"},
             "scripts":      {"type": "object"},
             "config":       {"type": "object"},
             "dependencies": {"type": "object", validate: PJV.validateDependencies},
             "devDependencies": {"type": "object", validate: PJV.validateDependencies},
-            "bundledDependencies": {"type": "array"},
-            "bundleDependencies": {"type": "array"},
+            "bundledDependencies": {"type": "array", validate: PJV.validateDependencies, or: "bundleDependencies"},
             "optionalDependencies": {"type": "object", validate: PJV.validateDependencies},
             "engines":      {"type": "object"},
             "engineStrict": {"type": "boolean"},
@@ -139,12 +138,14 @@ PJV.validatePackage = function (data, specName, options) {
         var field = map[name];
 
         if (typeof parsed[name] == "undefined") {
-            if (field.required) {
-                errors.push("Missing required field: " + name);
-            } else if (field.recommended) {
-                warnings.push("Missing recommended field: " + name);
-            } else {
-                recommendations.push("Missing optional field: " + name);
+            if (field.or && typeof parsed[field.or] == "undefined"){
+                if (field.required) {
+                    errors.push("Missing required field: " + name);
+                } else if (field.recommended) {
+                    warnings.push("Missing recommended field: " + name);
+                } else {
+                    recommendations.push("Missing optional field: " + name);
+                }
             }
             continue;
         }
