@@ -18,7 +18,13 @@ Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.c
 
 
 # Issues/Requests
-Please check out [the existing issues](https://github.com/gorillamania/package.json-validator/issues), and if you don't see that your problem is already being worked on, please [file an issue](https://github.com/gorillamania/package.json-validator/issues/new)
+Please check out [the existing issues](https://github.com/gorillamania/package.json-validator/issues), 
+and if you don't see that your problem is already being worked on, 
+please [file an issue](https://github.com/gorillamania/package.json-validator/issues/new).
+
+### Fork and Pull request
+Since you are probably a developer, you can probably just make the change yourself and submit a 
+[pull request](https://help.github.com/articles/using-pull-requests)
 
 # License
 See [LICENSE](https://github.com/gorillamania/package.json-validator/blob/master/LICENSE)
