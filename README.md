@@ -10,10 +10,9 @@ This tool verifies the package.json against the specification of your choice, le
 # Usages
 Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](http://package-json-validator.com/). Want to run your own copy? You are welcome to clone or fork this repo.
 
-# Future ideas...
-* Support for NPM specific fields
+# Future
 * An API
-* A node based command line interface, that would allow for plugins for editors
+* A node based command line interface
 * Unit tests
 
 
