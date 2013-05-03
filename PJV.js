@@ -285,7 +285,7 @@ PJV.validatePeople = function (name, obj) {
     }
 
     if (typeof obj == "string") {
-        if ((/[^<]+<\S+@\S+>/).test(obj)) {
+        if (!/[^<]+<\S+@\S+>/.test(obj)) {
             errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
         }
     } else if (obj instanceof Array) {
