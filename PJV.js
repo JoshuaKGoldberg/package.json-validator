@@ -138,14 +138,12 @@ PJV.validatePackage = function (data, specName, options) {
         var field = map[name];
 
         if (typeof parsed[name] == "undefined") {
-            if (field.or && typeof parsed[field.or] == "undefined"){
-                if (field.required) {
-                    errors.push("Missing required field: " + name);
-                } else if (field.recommended) {
-                    warnings.push("Missing recommended field: " + name);
-                } else {
-                    recommendations.push("Missing optional field: " + name);
-                }
+            if (field.required) {
+                errors.push("Missing required field: " + name);
+            } else if (field.recommended) {
+                warnings.push("Missing recommended field: " + name);
+            } else {
+                recommendations.push("Missing optional field: " + name);
             }
             continue;
         }
