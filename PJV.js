@@ -257,43 +257,47 @@ PJV.validateUrlOrMailto = function (name, obj) {
   "url" : "http://barnyrubble.tumblr.com/"
 }
 
-Or asingle string like this:
+Or a single string like this:
 "Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)
+
+Or an array of either of the above.
 
 */
 PJV.validatePeople = function (name, obj) {
     var errors = [];
 
     function validatePerson(obj) {
-        if (!obj.name) {
-            errors.push(name + " field should have name");
-        }
-        if (!obj.email && !obj.url) {
-            errors.push(name + " field should have email or url");
-        }
-        if (obj.email && !PJV.emailFormat.test(obj.email)) {
-            errors.push("Email not valid for " + name + ": " + obj.email);
-        }
-        if (obj.url && !PJV.urlFormat.test(obj.url)) {
-            errors.push("Url not valid for " + name + ": " + obj.url);
-        }
-        if (obj.web && !PJV.urlFormat.test(obj.web)) {
-            errors.push("Url not valid for " + name + ": " + obj.web);
+        if (typeof obj == "string") {
+            if (!/[^<]+<\S+@\S+>/.test(obj)) {
+                errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
+            }
+        } else if (typeof obj == "object") {
+            if (!obj.name) {
+                errors.push(name + " field should have name");
+            }
+            if (!obj.email && !obj.url) {
+                errors.push(name + " field should have email or url");
+            }
+            if (obj.email && !PJV.emailFormat.test(obj.email)) {
+                errors.push("Email not valid for " + name + ": " + obj.email);
+            }
+            if (obj.url && !PJV.urlFormat.test(obj.url)) {
+                errors.push("Url not valid for " + name + ": " + obj.url);
+            }
+            if (obj.web && !PJV.urlFormat.test(obj.web)) {
+                errors.push("Url not valid for " + name + ": " + obj.web);
+            }
+        } else {
+            errors.push("People field must be an object or a string");
         }
     }
 
-    if (typeof obj == "string") {
-        if (!/[^<]+<\S+@\S+>/.test(obj)) {
-            errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
-        }
-    } else if (obj instanceof Array) {
+    if (obj instanceof Array) {
         for (var i = 0; i < obj.length; i++) {
             validatePerson(obj[i]);
         }
-    } else if (typeof obj == "object") {
-        validatePerson(obj);
     } else {
-        errors.push("Type for field " + name + " should be a string or an object");
+        validatePerson(obj);
     }
     return errors;
 };
