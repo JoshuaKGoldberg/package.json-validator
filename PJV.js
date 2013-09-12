@@ -3,7 +3,7 @@
  */
 var PJV = {
     packageFormat: /^[a-z0-9][a-z0-9\.\-_]+$/,
-    versionFormat: /^[0-9]+\.[0-9]+\.[0-9+a-zA-Z\.]$/,
+    versionFormat: /^[0-9]+\.[0-9]+[0-9+a-zA-Z\.\-]+$/,
     urlFormat    : /^https*:\/\/[a-z.\-0-9]+/,
     emailFormat  : /\S+@\S+/ // I know this isn't thorough. it's not supposed to be.
 };
