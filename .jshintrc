@@ -60,7 +60,7 @@
     "sub"           : false,
     "trailing"      : true,
     "indent"        : 4,
-    "maxstatements" : 15,
+    "maxstatements" : 20,
     "maxcomplexity" : 8,
     "maxlen"        : 160
 }
