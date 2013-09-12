@@ -103,6 +103,7 @@ PJV.getSpecMap = function (specName) {
 };
 
 PJV.validatePackage = function (data, specName, options) {
+    /* jshint maxstatements: 45, maxcomplexity: 19 */
     var parsed;
     var out = {"valid": false};
     if (!data) {
@@ -222,6 +223,7 @@ or
 }
 */
 PJV.validateUrlOrMailto = function (name, obj) {
+    /* jshint maxcomplexity: 10 */
     var errors = [];
     if (typeof obj == "string") {
         if (!PJV.urlFormat.test(obj) && !PJV.emailFormat.test(obj)) {
@@ -267,6 +269,7 @@ PJV.validatePeople = function (name, obj) {
     var errors = [];
 
     function validatePerson(obj) {
+        /* jshint maxcomplexity: 10 */
         if (typeof obj == "string") {
             if (!/[^<]+<\S+@\S+>/.test(obj)) {
                 errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
