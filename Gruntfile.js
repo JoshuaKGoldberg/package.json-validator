@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 
         // run jshint on the files, with the options described below
         jshint: {
-            all: ['*.js', 'test/*.js'],
+            all: ['PJV.js', 'app.js', 'Gruntfile.js', 'test/*.js'],
             options: {
                 jshintrc: '.jshintrc'
             }
