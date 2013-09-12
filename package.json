@@ -1,0 +1,23 @@
+{
+    "name": "package-json-validator",
+    "version": "0.2.0",
+    "description": "Tools to validate package.json files",
+    "author": {
+        "name": "Nick Sullivan",
+        "email": "nick@sullivanflock.com",
+        "web": "http://creationeer.me"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:gorillamania/package.json-validator.git"
+    },
+    "dependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-jshint": "~0",
+        "grunt-contrib-qunit": "~0"
+    },
+    "scripts": {
+        "test": "grunt citest"
+    },
+    "private": true
+}
