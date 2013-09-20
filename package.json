@@ -18,6 +18,5 @@
     },
     "scripts": {
         "test": "grunt citest"
-    },
-    "private": true
+    }
 }
