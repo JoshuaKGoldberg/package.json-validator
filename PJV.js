@@ -102,7 +102,7 @@ PJV.getSpecMap = function (specName) {
 
 };
 
-PJV.validatePackage = function (data, specName, options) {
+PJV.parse = function (data, specName, options) {
     /* jshint maxstatements: 45, maxcomplexity: 19 */
     var parsed;
     var out = {"valid": false};
