@@ -4,7 +4,7 @@ angular.module('pjv', ['pjvFilters']);
 
 angular.module('pjvFilters', []).filter('validateJson', function() {
     return function(text) {
-        return PJV.parse(text, this.data.spec, this.data);
+        return PJV.validate(text, this.data.spec, this.data);
     };
 });
 

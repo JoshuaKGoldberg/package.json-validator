@@ -102,27 +102,34 @@ PJV.getSpecMap = function (specName) {
 
 };
 
-PJV.parse = function (data, specName, options) {
-    /* jshint maxstatements: 45, maxcomplexity: 19 */
-    var parsed;
-    var out = {"valid": false};
-    if (!data) {
-        out.critical = {"Empty JSON": "No data to parse"};
-        return out;
-    }
-    if (data[0] != "{") {
+PJV.parse = function (data) {
+    if (typeof data != "string") {
         // It's just a string
-        return data;
+        return "Invalid data - Not a string";
     }
+    var parsed;
     try {
         parsed = JSON.parse(data);
     } catch (e) {
-        out.critical = {"Invalid JSON": e.toString()};
-        return out;
+        return "Invalid JSON - " + e.toString();
     }
 
-    if (typeof parsed != "object") {
-        out.critical = {"JSON is not an object": typeof parsed};
+    if (typeof parsed != "object" || parsed === null || parsed instanceof Array) {
+        return "Invalid JSON - not an an object " + typeof parsed;
+    }
+
+    return parsed;
+};
+
+PJV.validate = function (data, specName, options) {
+    /* jshint maxstatements: 45, maxcomplexity: 19 */
+    options = options || {};
+    var parsed = PJV.parse(data),
+        out = {"valid": false};
+
+
+    if (typeof parsed == "string") {
+        out.critical = parsed;
         return out;
     }
 
