@@ -1,10 +1,8 @@
-var angular = window.angular, PJV = window.PJV;
+window.angular.module('pjv', ['pjvFilters']);
 
-angular.module('pjv', ['pjvFilters']);
-
-angular.module('pjvFilters', []).filter('validateJson', function() {
+window.angular.module('pjvFilters', []).filter('validateJson', function() {
     return function(text) {
-        return PJV.validate(text, this.data.spec, this.data);
+        return window.PJV.validate(text, this.data.spec, this.data);
     };
 });
 
