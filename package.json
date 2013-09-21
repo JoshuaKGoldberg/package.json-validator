@@ -23,6 +23,6 @@
         "test": "grunt citest"
     },
     "bin": {
-        "express": "./bin/express"
+        "pjv": "./bin/pjv"
     }
 }
