@@ -32,6 +32,34 @@ Options:
   --help, -h, -?         this help message                                  [default: false]
 ```
 
+### As a node library
+`npm install package-json-validator`
+
+#### API
+
+```
+PJV.validate(packageData[[, spec], options])
+```
+
+`spec` is either `npm`, `commonjs_1.0`, or `commonjs_1.1`
+
+
+`options` is an object with the following available:
+
+```
+{
+    warnings: true, // show warnings
+    recommendations: true // show recommendations
+}
+```
+
+Example:
+
+```
+var PJV=require('package-json-validator').PJV;
+PJV.validate(data, spec, options)
+```
+ 
 ## Issues/Requests
 Please check out [the existing issues](https://github.com/gorillamania/package.json-validator/issues), 
 and if you don't see that your problem is already being worked on, 
