@@ -24,6 +24,10 @@ var args = require('optimist')
         "default": false,
         "alias": 'r'
     }).describe('recommendations', 'display recommendations')
+    .options('quiet', {
+        "default": false,
+        "alias": 'q'
+    }).describe('quiet', 'less output')
     .usage("Validate package.json files")
     .options('help', {
         "default": false,
@@ -49,7 +53,9 @@ var contents = fs.readFileSync(options.filename).toString(),
     results = PJV.validate(contents, options.spec, {"warnings": options.warnings, "recommendations": options.recommendations});
 
 if (results.valid) {
-    console.log(results);
+    if (! options.quiet) {
+        console.log(results);
+    }
     process.exit(0);
 } else {
     console.error(options.filename + " is NOT valid");
