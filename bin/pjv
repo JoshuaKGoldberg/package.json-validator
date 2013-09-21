@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+/* Command line interface for package.json-validator.
+ *
+ * For command line options, try --help
+
+ * See README.md for more information
+ */
+
+// Command line options
+var args = require('optimist')
+    .options('filename', {
+        "default": "package.json",
+        "alias": 'f'
+    }).describe('filename', 'package.json file to validate')
+    .options('warnings', {
+        "default": false,
+        "alias": 'w'
+    }).describe('warnings', 'display warnings')
+    .options('recommendations', {
+        "default": false,
+        "alias": 't'
+    }).describe('recommendations', 'display recommendations')
+    .usage("Validate package.json files")
+    .options('help', {
+        "default": false,
+        "alias": 'h'
+    }).describe('help', 'this help message')
+    .alias('help', '?');
+
+var options = args.argv;
+
+if (options.help) {
+    args.showHelp();
+    process.exit(0);
+}
+
+var fs = require('fs');
+if (! fs.existsSync(options.filename)) {
+    console.error("File does not exist: " + options.filename);
+    process.exit(1);
+}
+
+var contents = fs.readFileSync(options.filename).toString();
+
+console.log("Contents", contents);

@@ -12,11 +12,17 @@
         "url": "git@github.com:gorillamania/package.json-validator.git"
     },
     "dependencies": {
+        "optimist": "~0.6.0"
+    },
+    "devDependencies": {
         "grunt": "~0.4.1",
         "grunt-contrib-jshint": "~0",
         "grunt-contrib-qunit": "~0"
     },
     "scripts": {
         "test": "grunt citest"
+    },
+    "bin": {
+        "express": "./bin/express"
     }
 }
