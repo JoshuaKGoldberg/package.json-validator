@@ -8,11 +8,30 @@
 This tool verifies the package.json against the specification of your choice, letting you know if you have a valid file. The validation reports required fields that you MUST have, warns for fields that you SHOULD have, and recommends optional fields that you COULD have.
 
 # Usages
+
+### Command line
+`npm install package-json-validator`
+
+Then it's in node_modules/bin/pjv
+
+See `node_modules/bin/pjv --help` for usage:
+
+```
+Options:
+  --filename, -f         package.json file to validate                      [default: "package.json"]
+  --spec, -s             which spec to use - npm|commonjs_1.0|commonjs_1.1  [default: "npm"]
+  --warnings, -w         display warnings                                   [default: false]
+  --recommendations, -r  display recommendations                            [default: false]
+  --quiet, -q            less output                                        [default: false]
+  --help, -h, -?         this help message                                  [default: false]
+```
+
+
+### Online
 Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](http://package-json-validator.com/). Want to run your own copy? You are welcome to clone or fork this repo.
 
 # Future
 * An API
-* A node based command line interface
 * Unit tests
 
 
