@@ -1,6 +1,6 @@
 var PJV = window.PJV;
 
-QUnit.test("Input", function() {
+QUnit.test("Input types", function() {
     QUnit.ok(PJV.validate("string").critical, "string");
     QUnit.ok(PJV.validate("{").critical, "malformed object");
     QUnit.ok(PJV.validate("[]").critical, "array");
@@ -11,4 +11,8 @@ QUnit.test("Input", function() {
     QUnit.ok(PJV.validate("false").critical, "false");
     QUnit.ok(PJV.validate({}).critical, "literal object");
     QUnit.ok(PJV.validate("{}").valid, "literal object");
+});
+
+QUnit.test("Basic", function() {
+
 });

@@ -12,9 +12,9 @@ This tool verifies the package.json against the specification of your choice, le
 ### Command line
 `npm install package-json-validator`
 
-Then it's in node_modules/bin/pjv
+Then it's in node_modules/.bin/pjv
 
-See `node_modules/bin/pjv --help` for usage:
+See `node_modules/.bin/pjv --help` for usage:
 
 ```
 Options:
