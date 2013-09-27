@@ -128,7 +128,7 @@
     };
 
     PJV.validate = function (data, specName, options) {
-        /* jshint maxstatements: 45, maxcomplexity: 19 */
+        /* jshint maxstatements: 45, maxcomplexity: 21 */
         options = options || {};
         specName = specName || "npm";
         var parsed = PJV.parse(data),
