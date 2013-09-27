@@ -25,7 +25,7 @@
                 "bugs":         {warning: true, validate: PJV.validateUrlOrMailto},
                 "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes},
                 "author":       {required: true, validate: PJV.validatePeople},
-                "contributors": {validate: PJV.validatePeople},
+                "contributors": {recommended: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
                 "main":         {"type": "array"},
                 "bin":          {"type": "object"},
@@ -61,7 +61,7 @@
                 "repositories": {"type": "object", required: true, validate: PJV.validateUrlTypes},
                 "dependencies": {"type": "object", required: true, validate: PJV.validateDependencies},
 
-                "homepage":     {"type": "string", warning: true, format: PJV.urlFormat},
+                "homepage":     {"type": "string", format: PJV.urlFormat},
                 "os":           {"type": "array"},
                 "cpu":          {"type": "array"},
                 "engine":       {"type": "array"},
@@ -155,7 +155,7 @@
                     errors.push("Missing required field: " + name);
                 } else if (field.warning) {
                     warnings.push("Missing recommended field: " + name);
-                } else {
+                } else if (field.recommended) {
                     recommendations.push("Missing optional field: " + name);
                 }
                 continue;

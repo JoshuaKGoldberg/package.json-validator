@@ -41,6 +41,7 @@ QUnit.test("NPM required fields", function() {
     });
 });
 
+
 QUnit.test("NPM warning fields", function() {
     var warningFields = {
         description : "This is my description",
@@ -61,5 +62,24 @@ QUnit.test("NPM warning fields", function() {
         result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
         QUnit.equal(result.valid, true, JSON.stringify(result));
         QUnit.equal(result.warnings && result.warnings.length, 1, JSON.stringify(result));
+    }
+});
+
+
+QUnit.test("NPM recommended fields", function() {
+    var recommendedFields = {
+        "contributors": ["Nick Sullivan <nick@sullivanflock.com>"]
+    };
+    var json = getPackageJson(recommendedFields);
+    var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: true});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+
+    for (var field in recommendedFields) {
+        json = getPackageJson(recommendedFields);
+        delete json[field];
+        result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: true});
+        QUnit.equal(result.valid, true, JSON.stringify(result));
+        QUnit.equal(result.recommendations && result.recommendations.length, 1, JSON.stringify(result));
     }
 });
