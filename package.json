@@ -1,6 +1,6 @@
 {
     "name": "package-json-validator",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "Tools to validate package.json files",
     "author": {
         "name": "Nick Sullivan",
