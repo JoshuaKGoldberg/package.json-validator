@@ -15,17 +15,17 @@
     PJV.getSpecMap = function (specName) {
 
         if (specName == "npm") {
-            // https://github.com/isaacs/npm/blob/c1f44603019651b99f7bfd129fa89e2c09e8f369/doc/cli/json.md
+            // https://npmjs.org/doc/json.html
             return {
                 "name":         {"type": "string", required: true, format: PJV.packageFormat},
                 "version":      {"type": "string", required: true, format: PJV.versionFormat},
                 "description":  {"type": "string", warning: true},
                 "keywords":     {"type": "array", warning: true},
-                "homepage":     {"type": "string", warning: true, format: PJV.urlFormat},
+                "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
                 "bugs":         {warning: true, validate: PJV.validateUrlOrMailto},
                 "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes},
                 "author":       {required: true, validate: PJV.validatePeople},
-                "contributors": {recommended: true, validate: PJV.validatePeople},
+                "contributors": {warning: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
                 "main":         {"type": "array"},
                 "bin":          {"type": "object"},
@@ -34,11 +34,11 @@
                 "repository":   {"type": "object", warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
                 "scripts":      {"type": "object"},
                 "config":       {"type": "object"},
-                "dependencies": {"type": "object", validate: PJV.validateDependencies},
+                "dependencies": {"type": "object", recommended: true, validate: PJV.validateDependencies},
                 "devDependencies": {"type": "object", validate: PJV.validateDependencies},
                 "bundledDependencies": {"type": "array", validate: PJV.validateDependencies, or: "bundleDependencies"},
                 "optionalDependencies": {"type": "object", validate: PJV.validateDependencies},
-                "engines":      {"type": "object"},
+                "engines":      {"type": "object", recommended: true},
                 "engineStrict": {"type": "boolean"},
                 "os":           {"type": "array"},
                 "cpu":          {"type": "array"},
