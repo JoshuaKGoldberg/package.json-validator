@@ -46,10 +46,10 @@ QUnit.test("NPM warning fields", function() {
     var warningFields = {
         description : "This is my description",
         keywords : ["keyword1", "keyword2", "keyword3"],
-        homepage : "http://example.com",
         bugs : "http://example.com/bugs",
         repository : { "type": "git", "url": "git@github.com:gorillamania/package.json-validator.git"},
-        licenses : [{ "type": "MIT", "url": "http://example.com/license"}]
+        licenses : [{ "type": "MIT", "url": "http://example.com/license"}],
+        contributors: ["Nick Sullivan <nick@sullivanflock.com>"]
     };
     var json = getPackageJson(warningFields);
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
@@ -68,7 +68,9 @@ QUnit.test("NPM warning fields", function() {
 
 QUnit.test("NPM recommended fields", function() {
     var recommendedFields = {
-        "contributors": ["Nick Sullivan <nick@sullivanflock.com>"]
+        homepage : "http://example.com",
+        engines : { "node" : ">=0.10.3 <0.12" },
+        dependencies : { "package-json-validator" : "*" }
     };
     var json = getPackageJson(recommendedFields);
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: true});
