@@ -19,11 +19,11 @@
             return {
                 "name":         {"type": "string", required: true, format: PJV.packageFormat},
                 "version":      {"type": "string", required: true, format: PJV.versionFormat},
-                "description":  {"type": "string", recommended: true},
-                "keywords":     {"type": "array", recommended: true},
-                "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
-                "bugs":         {recommended: true, validate: PJV.validateUrlOrMailto},
-                "licenses":     {"type": "array", recommended: true, validate: PJV.validateUrlTypes},
+                "description":  {"type": "string", warning: true},
+                "keywords":     {"type": "array", warning: true},
+                "homepage":     {"type": "string", warning: true, format: PJV.urlFormat},
+                "bugs":         {warning: true, validate: PJV.validateUrlOrMailto},
+                "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes},
                 "author":       {required: true, validate: PJV.validatePeople},
                 "contributors": {validate: PJV.validatePeople},
                 "files":        {"type": "array"},
@@ -31,7 +31,7 @@
                 "bin":          {"type": "object"},
                 "man":          {"type": "object"},
                 "directories":  {"type": "object"},
-                "repository":   {"type": "object", recommended: true, validate: PJV.validateUrlTypes, or: "repositories"},
+                "repository":   {"type": "object", warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
                 "scripts":      {"type": "object"},
                 "config":       {"type": "object"},
                 "dependencies": {"type": "object", validate: PJV.validateDependencies},
@@ -61,7 +61,7 @@
                 "repositories": {"type": "object", required: true, validate: PJV.validateUrlTypes},
                 "dependencies": {"type": "object", required: true, validate: PJV.validateDependencies},
 
-                "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
+                "homepage":     {"type": "string", warning: true, format: PJV.urlFormat},
                 "os":           {"type": "array"},
                 "cpu":          {"type": "array"},
                 "engine":       {"type": "array"},
@@ -80,15 +80,15 @@
                 "main":         {"type": "array", required: true},
                 "directories":  {"type": "object", required: true},
 
-                "maintainers":  {"type": "array", recommended: true, validate: PJV.validatePeople},
-                "description":  {"type": "string", recommended: true},
-                "licenses":     {"type": "array", recommended: true, validate: PJV.validateUrlTypes},
-                "bugs":         {"type": "string", recommended: true, validate: PJV.validateUrlOrMailto},
+                "maintainers":  {"type": "array", warning: true, validate: PJV.validatePeople},
+                "description":  {"type": "string", warning: true},
+                "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes},
+                "bugs":         {"type": "string", warning: true, validate: PJV.validateUrlOrMailto},
                 "keywords":     {"type": "array"},
                 "repositories": {"type": "array", validate: PJV.validateUrlTypes},
                 "contributors": {"type": "array", validate: PJV.validatePeople},
                 "dependencies": {"type": "object", validate: PJV.validateDependencies},
-                "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
+                "homepage":     {"type": "string", warning: true, format: PJV.urlFormat},
                 "os":           {"type": "array"},
                 "cpu":          {"type": "array"},
                 "engine":       {"type": "array"},
@@ -153,7 +153,7 @@
             if (typeof parsed[name] == "undefined") {
                 if (field.required) {
                     errors.push("Missing required field: " + name);
-                } else if (field.recommended) {
+                } else if (field.warning) {
                     warnings.push("Missing recommended field: " + name);
                 } else {
                     recommendations.push("Missing optional field: " + name);
