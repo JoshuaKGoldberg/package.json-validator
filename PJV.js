@@ -23,7 +23,8 @@
                 "keywords":     {"type": "array", warning: true},
                 "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
                 "bugs":         {warning: true, validate: PJV.validateUrlOrMailto},
-                "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes},
+                "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes, or: "license"},
+                "license":      {"type": "string"},
                 "author":       {required: true, validate: PJV.validatePeople},
                 "contributors": {warning: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
@@ -150,7 +151,7 @@
         for (var name in map) {
             var field = map[name];
 
-            if (typeof parsed[name] == "undefined") {
+            if (parsed[name] === undefined && (!field.or || field.or && parsed[field.or] === undefined)) {
                 if (field.required) {
                     errors.push("Missing required field: " + name);
                 } else if (field.warning) {
@@ -158,6 +159,9 @@
                 } else if (field.recommended) {
                     recommendations.push("Missing optional field: " + name);
                 }
+                continue;
+            } else if (parsed[name] === undefined) {
+                // It's empty, but not necessary
                 continue;
             }
 

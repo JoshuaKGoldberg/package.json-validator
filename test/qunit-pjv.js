@@ -56,7 +56,7 @@ QUnit.test("Required fields", function() {
 
 
 QUnit.test("Warning fields", function() {
-   var json = getPackageJson(npmWarningFields);
+    var json = getPackageJson(npmWarningFields);
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
     QUnit.equal(result.valid, true, JSON.stringify(result));
     QUnit.equal(result.critical, undefined, JSON.stringify(result));
@@ -109,4 +109,12 @@ QUnit.test("Licenses", function() {
     QUnit.equal(result.valid, true, JSON.stringify(result));
     QUnit.equal(result.critical, undefined, JSON.stringify(result));
     QUnit.equal(result.warnings, undefined, JSON.stringify(result));
+
+    // neither
+    json = getPackageJson(npmWarningFields);
+    delete json.licenses;
+    result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+    QUnit.equal(result.warnings && result.warnings.length, 1, JSON.stringify(result));
 });
