@@ -19,11 +19,9 @@ Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.c
 
 
 ### Command line
-`npm install package-json-validator`
+`npm install package-json-validator -g`
 
-Then it's in node_modules/.bin/pjv
-
-See `node_modules/.bin/pjv --help` for usage:
+See `pjv --help` for usage:
 
 ```
 Options:
