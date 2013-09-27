@@ -13,6 +13,17 @@ function getPackageJson(extra) {
     }
     return out;
 }
+var npmWarningFields = {
+    description : "This is my description",
+    keywords : ["keyword1", "keyword2", "keyword3"],
+    bugs : "http://example.com/bugs",
+    repository : { "type": "git", "url": "git@github.com:gorillamania/package.json-validator.git"},
+    licenses : [{ "type": "MIT", "url": "http://example.com/license"}],
+    contributors: ["Nick Sullivan <nick@sullivanflock.com>"]
+};
+ 
+
+QUnit.module("Basic");
 
 QUnit.test("Input types", function() {
     QUnit.ok(PJV.validate("string").critical, "string");
@@ -26,7 +37,9 @@ QUnit.test("Input types", function() {
     QUnit.ok(PJV.validate({}).critical, "literal object");
 });
 
-QUnit.test("NPM required fields", function() {
+QUnit.module("NPM");
+
+QUnit.test("Required fields", function() {
     var json = getPackageJson();
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
     QUnit.equal(result.valid, true, JSON.stringify(result));
@@ -42,22 +55,14 @@ QUnit.test("NPM required fields", function() {
 });
 
 
-QUnit.test("NPM warning fields", function() {
-    var warningFields = {
-        description : "This is my description",
-        keywords : ["keyword1", "keyword2", "keyword3"],
-        bugs : "http://example.com/bugs",
-        repository : { "type": "git", "url": "git@github.com:gorillamania/package.json-validator.git"},
-        licenses : [{ "type": "MIT", "url": "http://example.com/license"}],
-        contributors: ["Nick Sullivan <nick@sullivanflock.com>"]
-    };
-    var json = getPackageJson(warningFields);
+QUnit.test("Warning fields", function() {
+   var json = getPackageJson(npmWarningFields);
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
     QUnit.equal(result.valid, true, JSON.stringify(result));
     QUnit.equal(result.critical, undefined, JSON.stringify(result));
 
-    for (var field in warningFields) {
-        json = getPackageJson(warningFields);
+    for (var field in npmWarningFields) {
+        json = getPackageJson(npmWarningFields);
         delete json[field];
         result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
         QUnit.equal(result.valid, true, JSON.stringify(result));
@@ -66,7 +71,7 @@ QUnit.test("NPM warning fields", function() {
 });
 
 
-QUnit.test("NPM recommended fields", function() {
+QUnit.test("Recommended fields", function() {
     var recommendedFields = {
         homepage : "http://example.com",
         engines : { "node" : ">=0.10.3 <0.12" },
@@ -84,4 +89,24 @@ QUnit.test("NPM recommended fields", function() {
         QUnit.equal(result.valid, true, JSON.stringify(result));
         QUnit.equal(result.recommendations && result.recommendations.length, 1, JSON.stringify(result));
     }
+});
+
+QUnit.test("Licenses", function() {
+    // https://npmjs.org/doc/json.html#license
+
+    // licenses as an array
+    var json = getPackageJson(npmWarningFields);
+    var result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+    QUnit.equal(result.warnings, undefined, JSON.stringify(result));
+
+    // licenses as a single type
+    json = getPackageJson(npmWarningFields);
+    delete json.licenses;
+    json.license = "MIT";
+    result = PJV.validate(JSON.stringify(json), "npm", {warnings: true, recommendations: false});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+    QUnit.equal(result.warnings, undefined, JSON.stringify(result));
 });
