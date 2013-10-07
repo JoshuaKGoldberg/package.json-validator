@@ -288,15 +288,15 @@
         function validatePerson(obj) {
             /* jshint maxcomplexity: 10 */
             if (typeof obj == "string") {
-                if (!/[^<]+<\S+@\S+>/.test(obj)) {
-                    errors.push("String not valid for " + name + ", expected format is Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)");
-                }
+                var authorRegex = /^([^<\(\s]+[^<\(]*)?(\s*<(.*?)>)?(\s*\((.*?)\))?/;
+                var authorFields = authorRegex.exec(obj);
+                var name = authorFields[1],
+                    email = authorFields[3],
+                    url = authorFields[5];
+                validatePerson({"name": name, "email": email, "url": url});
             } else if (typeof obj == "object") {
                 if (!obj.name) {
                     errors.push(name + " field should have name");
-                }
-                if (!obj.email && !obj.url) {
-                    errors.push(name + " field should have email or url");
                 }
                 if (obj.email && !PJV.emailFormat.test(obj.email)) {
                     errors.push("Email not valid for " + name + ": " + obj.email);

@@ -44,6 +44,9 @@ QUnit.test("Field formats", function() {
     QUnit.ok(PJV.packageFormat.test("abc123._-"), "url safe characters");
     QUnit.equal(PJV.packageFormat.test(".abc123"), false, "starts with dot");
     QUnit.equal(PJV.packageFormat.test("_abc123"), false, "starts with underscore");
+    QUnit.equal(PJV.validatePeople("people", "Barney Rubble").length, 0, "author string: name");
+    QUnit.equal(PJV.validatePeople("people", "Barney Rubble <b@rubble.com> (http://barneyrubble.tumblr.com/)").length, 0, "author string: name, email, url");
+    QUnit.equal(PJV.validatePeople("people", "<b@rubble.com> (http://barneyrubble.tumblr.com/)").length > 0, 1, "author string: name required");
 });
 
 QUnit.test("Required fields", function() {
