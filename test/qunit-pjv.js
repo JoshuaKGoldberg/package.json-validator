@@ -39,6 +39,13 @@ QUnit.test("Input types", function() {
 
 QUnit.module("NPM");
 
+QUnit.test("Field formats", function() {
+    QUnit.ok(PJV.packageFormat.test("a"), "one alphanumeric character");
+    QUnit.ok(PJV.packageFormat.test("abc123._-"), "url safe characters");
+    QUnit.equal(PJV.packageFormat.test(".abc123"), false, "starts with dot");
+    QUnit.equal(PJV.packageFormat.test("_abc123"), false, "starts with underscore");
+});
+
 QUnit.test("Required fields", function() {
     var json = getPackageJson();
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
