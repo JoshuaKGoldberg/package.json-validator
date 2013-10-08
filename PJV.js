@@ -290,10 +290,10 @@
             if (typeof obj == "string") {
                 var authorRegex = /^([^<\(\s]+[^<\(]*)?(\s*<(.*?)>)?(\s*\((.*?)\))?/;
                 var authorFields = authorRegex.exec(obj);
-                var name = authorFields[1],
-                    email = authorFields[3],
-                    url = authorFields[5];
-                validatePerson({"name": name, "email": email, "url": url});
+                var authorName = authorFields[1],
+                    authorEmail = authorFields[3],
+                    authorUrl = authorFields[5];
+                validatePerson({"name": authorName, "email": authorEmail, "url": authorUrl});
             } else if (typeof obj == "object") {
                 if (!obj.name) {
                     errors.push(name + " field should have name");
