@@ -170,7 +170,7 @@
             if (field.types || field.type) {
                 var typeErrors = PJV.validateType(name, field, parsed[name]);
                 if(typeErrors.length > 0) {
-                    errors.concat(typeErrors);
+                    errors = errors.concat(typeErrors);
                     continue;
                 }
             }
@@ -203,10 +203,10 @@
 
     PJV.validateType = function(name, field, value) {
         var errors = [];
-        var types = field.types || [field.type];
-        if ((types.indexOf("array") != -1 && !value instanceof Array)
-            || (types.indexOf("array") == -1 && types.indexOf(typeof value) == -1)) {
-            errors.push("Type for field " + name + ", was expected to be " + types.join(" or ") + ", not " + typeof value);
+        var validFieldTypes = field.types || [field.type];
+        var valueType = value instanceof Array ? "array" : typeof value;
+        if(validFieldTypes.indexOf(valueType) == -1) {
+            errors.push("Type for field " + name + ", was expected to be " + validFieldTypes.join(" or ") + ", not " + typeof value);
         }
         return errors;
     };
