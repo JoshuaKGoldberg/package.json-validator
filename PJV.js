@@ -28,7 +28,7 @@
                 "author":       {required: true, validate: PJV.validatePeople},
                 "contributors": {warning: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
-                "main":         {"type": "array"},
+                "main":         {"type": "string"},
                 "bin":          {"types": ["string", "object"]},
                 "man":          {"type": "object"},
                 "directories":  {"type": "object"},
@@ -79,7 +79,7 @@
             return {
                 "name":         {"type": "string", required: true, format: PJV.packageFormat},
                 "version":      {"type": "string", required: true, format: PJV.versionFormat},
-                "main":         {"type": "array", required: true},
+                "main":         {"type": "string", required: true},
                 "directories":  {"type": "object", required: true},
 
                 "maintainers":  {"type": "array", warning: true, validate: PJV.validatePeople},
