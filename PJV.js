@@ -28,8 +28,8 @@
                 "author":       {required: true, validate: PJV.validatePeople},
                 "contributors": {warning: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
-                "main":         {"type": "array"},
-                "bin":          {"type": "object"},
+                "main":         {"type": "string"},
+                "bin":          {"types": ["string", "object"]},
                 "man":          {"type": "object"},
                 "directories":  {"type": "object"},
                 "repository":   {"type": "object", warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
@@ -79,7 +79,7 @@
             return {
                 "name":         {"type": "string", required: true, format: PJV.packageFormat},
                 "version":      {"type": "string", required: true, format: PJV.versionFormat},
-                "main":         {"type": "array", required: true},
+                "main":         {"type": "string", required: true},
                 "directories":  {"type": "object", required: true},
 
                 "maintainers":  {"type": "array", warning: true, validate: PJV.validatePeople},
@@ -167,10 +167,10 @@
             }
 
             // Type checking
-            if (field.type) {
-                if ((field.type == "array" && !parsed[name] instanceof Array)
-                        || (field.type != "array" && typeof parsed[name] != field.type)) {
-                    errors.push("Type for field " + name + ", was expected to be " + field.type + ", not " + typeof parsed[name]);
+            if (field.types || field.type) {
+                var typeErrors = PJV.validateType(name, field, parsed[name]);
+                if(typeErrors.length > 0) {
+                    errors = errors.concat(typeErrors);
                     continue;
                 }
             }
@@ -199,6 +199,16 @@
         }
 
         return out;
+    };
+
+    PJV.validateType = function(name, field, value) {
+        var errors = [];
+        var validFieldTypes = field.types || [field.type];
+        var valueType = value instanceof Array ? "array" : typeof value;
+        if(validFieldTypes.indexOf(valueType) == -1) {
+            errors.push("Type for field " + name + ", was expected to be " + validFieldTypes.join(" or ") + ", not " + typeof value);
+        }
+        return errors;
     };
 
     // Validates dependencies, making sure the object is a set of key value pairs

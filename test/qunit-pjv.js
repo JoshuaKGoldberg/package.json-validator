@@ -47,6 +47,9 @@ QUnit.test("Field formats", function() {
     QUnit.equal(PJV.validatePeople("people", "Barney Rubble").length, 0, "author string: name");
     QUnit.equal(PJV.validatePeople("people", "Barney Rubble <b@rubble.com> (http://barneyrubble.tumblr.com/)").length, 0, "author string: name, email, url");
     QUnit.equal(PJV.validatePeople("people", "<b@rubble.com> (http://barneyrubble.tumblr.com/)").length > 0, 1, "author string: name required");
+    QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: "./path/to/program"})), "npm").valid, true, "bin: can be string");
+    QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: {"my-project": "./path/to/program"}})), "npm").valid, true, "bin: can be object");
+    QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: ["./path/to/program"]})), "npm").valid, false, "bin: can't be an array");
 });
 
 QUnit.test("Required fields", function() {
