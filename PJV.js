@@ -229,7 +229,7 @@
 
     PJV.isValidVersionRange = function (v) {
         // https://github.com/isaacs/npm/blob/master/doc/cli/json.md#dependencies
-        return  (/^[<>=~]{0,2}[0-9.x]+/).test(v) ||
+        return  (/^[\^<>=~]{0,2}[0-9.x]+/).test(v) ||
                 PJV.urlFormat.test(v) ||
                 v == "*" ||
                 v === "" ||
