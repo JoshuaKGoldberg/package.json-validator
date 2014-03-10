@@ -52,6 +52,33 @@ QUnit.test("Field formats", function() {
     QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: ["./path/to/program"]})), "npm").valid, false, "bin: can't be an array");
 });
 
+QUnit.test("Dependencies Ranges", function() {
+    var json = getPackageJson({
+        dependencies: {
+            star: '*',
+            empty: '',
+            url: 'https://github.com/gorillamania/package.json-validator',
+            'caret-first': '^1.0.0',
+            'tilde-first': '~1.2',
+            'x-version': '1.2.x',
+            'tilde-top': '~1',
+            'caret-top': '^1'
+        },
+        devDependencies: {
+            'range': '1.2.3 - 2.3.4',
+            'lteq': '<=1.2.3',
+            'gteq': '>=1.2.3',
+            'verion-build': '1.2.3+build2012',
+            'lt': '<1.2.3',
+            'gt': '>1.2.3'
+        }
+    });
+    var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+});
+
+
 QUnit.test("Required fields", function() {
     var json = getPackageJson();
     var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
