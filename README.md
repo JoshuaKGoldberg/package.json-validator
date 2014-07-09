@@ -39,6 +39,9 @@ Options:
 ### Via Grunt
 Have your package validate via a Grunt plugin - see [grunt-nice-package](https://npmjs.org/package/grunt-nice-package)
 
+### Via Gulp
+Have your package validate via a [gulp](http://gulpjs.com/) plugin - see [gulp-nice-package](https://github.com/chmontgomery/gulp-nice-package)
+
 ## API
 
 ```
