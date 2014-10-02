@@ -7,7 +7,7 @@
 ## Supported Specifications
 Of course, there are multiple ones to follow, which makes it trickier.
 
-* [NPM](https://npmjs.org/doc/json.html)
+* [npm](https://npmjs.org/doc/json.html)
 * [CommonJS Packages 1.0](http://wiki.commonjs.org/wiki/Packages/1.0)
 * [CommonJS Packages 1.1](http://wiki.commonjs.org/wiki/Packages/1.1)
 
@@ -15,7 +15,7 @@ Of course, there are multiple ones to follow, which makes it trickier.
 ## Usages
 
 ### Online
-Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](package-json-validator.com). Want to run your own copy? You are welcome to clone or fork this repo.
+Online copy hosted courtesy of Nick Sullivan at <http://package-json-validator.com/>. Want to run your own copy? You are welcome to clone or fork this repo.
 
 
 ### Command line
@@ -37,7 +37,7 @@ Options:
 `npm install package-json-validator`
 
 ### Via Grunt
-Have your package validate via a Grunt plugin - see [grunt-nice-package](https://npmjs.org/package/grunt-nice-package)
+Have your package validate via a [Grunt](http://gruntjs.com/) plugin - see [grunt-nice-package](https://npmjs.org/package/grunt-nice-package)
 
 ### Via Gulp
 Have your package validate via a [gulp](http://gulpjs.com/) plugin - see [gulp-nice-package](https://github.com/chmontgomery/gulp-nice-package)
