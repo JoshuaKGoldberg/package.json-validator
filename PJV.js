@@ -32,7 +32,7 @@
                 "bin":          {"types": ["string", "object"]},
                 "man":          {"type": "object"},
                 "directories":  {"type": "object"},
-                "repository":   {"type": ["string","object"], warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
+                "repository":   {"types": ["string", "object"], warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
                 "scripts":      {"type": "object"},
                 "config":       {"type": "object"},
                 "dependencies": {"type": "object", recommended: true, validate: PJV.validateDependencies},
