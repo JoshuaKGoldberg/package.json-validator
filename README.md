@@ -15,7 +15,7 @@ Of course, there are multiple ones to follow, which makes it trickier.
 ## Usages
 
 ### Online
-Online copy hosted courtesy of Nick Sullivan at [http://package-json-validator.com/](package-json-validator.com). Want to run your own copy? You are welcome to clone or fork this repo.
+Online copy hosted courtesy of Nick Sullivan at [package-json-validator.com](http://package-json-validator.com/). Want to run your own copy? You are welcome to clone or fork this repo.
 
 
 ### Command line
