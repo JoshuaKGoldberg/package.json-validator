@@ -25,7 +25,7 @@
                 "bugs":         {warning: true, validate: PJV.validateUrlOrMailto},
                 "licenses":     {"type": "array", warning: true, validate: PJV.validateUrlTypes, or: "license"},
                 "license":      {"type": "string"},
-                "author":       {required: true, validate: PJV.validatePeople},
+                "author":       {warning: true, validate: PJV.validatePeople},
                 "contributors": {warning: true, validate: PJV.validatePeople},
                 "files":        {"type": "array"},
                 "main":         {"type": "string"},

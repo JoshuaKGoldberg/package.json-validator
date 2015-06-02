@@ -3,8 +3,7 @@ var PJV = window.PJV;
 function getPackageJson(extra) {
     var out = {
         "name": "test-package",
-        "version": "0.5.0",
-        "author": "Nick Sullivan <nick@sullivanflock.com>"
+        "version": "0.5.0"
     };
     if (extra) {
         for (var name in extra) {
@@ -14,6 +13,7 @@ function getPackageJson(extra) {
     return out;
 }
 var npmWarningFields = {
+    author: "Nick Sullivan <nick@sullivanflock.com>",
     description : "This is my description",
     keywords : ["keyword1", "keyword2", "keyword3"],
     bugs : "http://example.com/bugs",
@@ -85,7 +85,7 @@ QUnit.test("Required fields", function() {
     QUnit.equal(result.valid, true, JSON.stringify(result));
     QUnit.equal(result.critical, undefined, JSON.stringify(result));
 
-    ["name", "author", "version"].forEach(function(field) {
+    ["name", "version"].forEach(function(field) {
         json = getPackageJson();
         delete json[field];
         result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
