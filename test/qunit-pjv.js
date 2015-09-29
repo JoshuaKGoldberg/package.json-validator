@@ -50,6 +50,7 @@ QUnit.test("Field formats", function() {
     QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: "./path/to/program"})), "npm").valid, true, "bin: can be string");
     QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: {"my-project": "./path/to/program"}})), "npm").valid, true, "bin: can be object");
     QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({bin: ["./path/to/program"]})), "npm").valid, false, "bin: can't be an array");
+    QUnit.equal(PJV.validate(JSON.stringify(getPackageJson({dependencies: {bad: {version: '3.3.3'}}})), "npm").valid, false, "version should be a string");
 });
 
 QUnit.test("Dependencies Ranges", function() {
