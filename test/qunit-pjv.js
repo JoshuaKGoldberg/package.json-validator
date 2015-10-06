@@ -62,7 +62,8 @@ QUnit.test("Dependencies Ranges", function() {
             'tilde-first': '~1.2',
             'x-version': '1.2.x',
             'tilde-top': '~1',
-            'caret-top': '^1'
+            'caret-top': '^1',
+            "@es-shims/api": "^1.0.0"
         },
         devDependencies: {
             'range': '1.2.3 - 2.3.4',
