@@ -78,6 +78,19 @@ QUnit.test("Dependencies Ranges", function() {
     QUnit.equal(result.critical, undefined, JSON.stringify(result));
 });
 
+QUnit.test("Dependencies with scope", function() { // reference: https://github.com/gorillamania/package.json-validator/issues/49
+    var json = getPackageJson({
+        dependencies: {
+            star: '*',
+            empty: '',
+            url: 'https://github.com/gorillamania/package.json-validator',
+            '@reactivex/rxjs': '^5.0.0-alpha.7'
+        }
+    });
+    var result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
+    QUnit.equal(result.valid, true, JSON.stringify(result));
+    QUnit.equal(result.critical, undefined, JSON.stringify(result));
+});
 
 QUnit.test("Required fields", function() {
     var json = getPackageJson();
