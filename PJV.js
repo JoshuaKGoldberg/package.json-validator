@@ -233,6 +233,7 @@
                 PJV.urlFormat.test(v) ||
                 v == "*" ||
                 v === "" ||
+                v === "latest" ||
                 (v.indexOf && v.indexOf("git") === 0) ||
                 false;
     };
