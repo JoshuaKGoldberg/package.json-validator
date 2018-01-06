@@ -30,7 +30,7 @@
                 "files":        {"type": "array"},
                 "main":         {"type": "string"},
                 "bin":          {"types": ["string", "object"]},
-                "man":          {"type": "object"},
+                "man":          {"types": ["string", "array"]},
                 "directories":  {"type": "object"},
                 "repository":   {"types": ["string", "object"], warning: true, validate: PJV.validateUrlTypes, or: "repositories"},
                 "scripts":      {"type": "object"},
