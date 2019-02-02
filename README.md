@@ -44,7 +44,7 @@ Have your package validate via a [gulp](http://gulpjs.com/) plugin - see [gulp-n
 
 ## API
 
-```
+```js
 PJV.validate(packageData[[, spec], options])
 ```
 
@@ -53,7 +53,7 @@ PJV.validate(packageData[[, spec], options])
 
 `options` is an object with the following available:
 
-```
+```js
 {
     warnings: true, // show warnings
     recommendations: true // show recommendations
@@ -62,7 +62,7 @@ PJV.validate(packageData[[, spec], options])
 
 Example:
 
-```
+```js
 var PJV=require('package-json-validator').PJV;
 PJV.validate(data, spec, options)
 ```
