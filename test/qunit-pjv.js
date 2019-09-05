@@ -146,7 +146,7 @@ QUnit.test("Recommended fields", function() {
 });
 
 QUnit.test("Licenses", function() {
-    // https://npmjs.org/doc/json.html#license
+    // https://docs.npmjs.com/files/package.json#license
 
     // licenses as an array
     var json = getPackageJson(npmWarningFields);

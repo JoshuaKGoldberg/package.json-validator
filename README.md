@@ -7,7 +7,7 @@
 ## Supported Specifications
 Of course, there are multiple ones to follow, which makes it trickier.
 
-* [NPM](https://npmjs.org/doc/json.html)
+* [NPM](https://docs.npmjs.com/files/package.json)
 * [CommonJS Packages 1.0](http://wiki.commonjs.org/wiki/Packages/1.0)
 * [CommonJS Packages 1.1](http://wiki.commonjs.org/wiki/Packages/1.1)
 

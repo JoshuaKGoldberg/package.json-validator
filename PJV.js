@@ -15,7 +15,7 @@
     PJV.getSpecMap = function (specName) {
 
         if (specName == "npm") {
-            // https://npmjs.org/doc/json.html
+            // https://docs.npmjs.com/files/package.json
             return {
                 "name":         {"type": "string", required: true, format: PJV.packageFormat},
                 "version":      {"type": "string", required: true, format: PJV.versionFormat},
