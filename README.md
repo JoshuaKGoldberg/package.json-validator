@@ -63,6 +63,73 @@ Example:
 var PJV=require('package-json-validator').PJV;
 PJV.validate(data, spec, options)
 ```
+
+Example1:
+```js
+ var PJV=require('package-json-validator').PJV;
+ let text=JSON.stringify({
+      "name": "packageJsonValidator",
+      "version": "0.1.0",
+      "private": true,
+      "dependencies": {
+        "date-fns": "^2.29.3",
+        "install": "^0.13.0",
+        "react": "^18.2.0",
+        "react-chartjs-2": "^5.0.1",
+        "react-dom": "^18.2.0",
+        "react-material-ui-carousel": "^3.4.2",
+        "react-multi-carousel": "^2.8.2",
+        "react-redux": "^8.0.5",
+        "react-router-dom": "^6.4.3",
+        "react-scripts": "5.0.1",
+        "redux": "^4.2.0",
+        "styled-components": "^5.3.6",
+        "web-vitals": "^2.1.4"
+      },
+      "scripts": {
+        "start": "react-scripts start"
+      },
+      "eslintConfig": {
+        "extends": [
+          "react-app",
+          "react-app/jest"
+        ]
+      },
+      "browserslist": {
+        "production": [
+          ">0.2%",
+          "not dead",
+          "not op_mini all"
+        ],
+        "development": [
+          "last 1 chrome version",
+          "last 1 firefox version",
+          "last 1 safari version"
+        ]
+      }
+    })
+    const data=PJV.validate(text)
+```
+Output for above example
+```js
+console.log(data)
+// {
+//  valid: true,
+//   warnings: [
+//    'Missing recommended field: description',
+//    'Missing recommended field: keywords',
+//    'Missing recommended field: bugs',
+//    'Missing recommended field: licenses',
+//    'Missing recommended field: author',
+//    'Missing recommended field: contributors',
+//    'Missing recommended field: repository'
+//  ],
+//  recommendations: [
+//    'Missing optional field: homepage',
+//    'Missing optional field: engines'
+//  ]
+} 
+```
  
 ## Issues/Requests
 Please check out [the existing issues](https://github.com/gorillamania/package.json-validator/issues), 
