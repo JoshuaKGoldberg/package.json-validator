@@ -39,7 +39,6 @@
         "lint",
         "package.json linter"
     ],
-    "homepage": "http://package-json-validator.com",
     "bugs": {
         "url": "http://github.com/gorillamania/package.json-validator/issues",
         "email": "nick@sullivanflock.com"
