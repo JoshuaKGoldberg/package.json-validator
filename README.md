@@ -2,8 +2,6 @@
 
 `package.json` files are required for node.js/npm projects. Beyond just valid json, there are required fields to follow the specifications.  This tool verifies the package.json against the specification of your choice, letting you know if you have a valid file. The validation reports required fields that you MUST have, warns for fields that you SHOULD have, and recommends optional fields that you COULD have.
 
-![Circle CI Build Status](https://circleci.com/gh/gorillamania/package.json-validator.png?circle-token=9aadc02abff3bc88226345667198776987f04052)
-
 ## Supported Specifications
 Of course, there are multiple ones to follow, which makes it trickier.
 
