@@ -12,13 +12,13 @@
 
     var PJV = exports.PJV;
 
-    PJV.getSpecMap = function (specName) {
+    PJV.getSpecMap = function (specName, isPrivate) {
 
         if (specName == "npm") {
             // https://docs.npmjs.com/cli/v9/configuring-npm/package-json
             return {
-                "name":         {"type": "string", required: true, format: PJV.packageFormat},
-                "version":      {"type": "string", required: true, format: PJV.versionFormat},
+                "name":         {"type": "string", required: !isPrivate, format: PJV.packageFormat},
+                "version":      {"type": "string", required: !isPrivate, format: PJV.versionFormat},
                 "description":  {"type": "string", warning: true},
                 "keywords":     {"type": "array", warning: true},
                 "homepage":     {"type": "string", recommended: true, format: PJV.urlFormat},
@@ -140,7 +140,7 @@
             return out;
         }
 
-        var map = PJV.getSpecMap(specName);
+        var map = PJV.getSpecMap(specName, parsed.private);
         if (specName === false) {
             out.critical = {"Invalid specification": specName};
             return out;
