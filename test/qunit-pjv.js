@@ -106,6 +106,14 @@ QUnit.test("Required fields", function() {
         QUnit.equal(result.valid, false, JSON.stringify(result));
         QUnit.equal(result.warnings, undefined, JSON.stringify(result));
     });
+    ["name", "version"].forEach(function(field) {
+        json = getPackageJson();
+        json['private'] = true;
+        delete json[field];
+        result = PJV.validate(JSON.stringify(json), "npm", {warnings: false, recommendations: false});
+        QUnit.equal(result.valid, true, JSON.stringify(result));
+        QUnit.equal(result.warnings, undefined, JSON.stringify(result));
+    });
 });
 
 
