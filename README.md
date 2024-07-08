@@ -143,4 +143,4 @@ See [LICENSE](https://github.com/gorillamania/package.json-validator/blob/master
 
 ## Appreciation
 
-Many thanks to @TechNickAI for creating the initial version and core infrastructure of this package! 💖
+Many thanks to [@TechNickAI](https://github.com/TechNickAI) for creating the initial version and core infrastructure of this package! 💖
