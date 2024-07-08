@@ -140,3 +140,7 @@ Since you are probably a developer, you can probably just make the change yourse
 
 ## License
 See [LICENSE](https://github.com/gorillamania/package.json-validator/blob/master/LICENSE)
+
+## Appreciation
+
+Many thanks to @TechNickAI for creating the initial version and core infrastructure of this package! 💖
