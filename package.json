@@ -1,61 +1,88 @@
 {
-    "name": "package-json-validator",
-    "version": "0.6.5",
-    "description": "Tools to validate package.json files",
-    "author": {
-        "name": "Nick Sullivan",
-        "email": "nick@sullivanflock.com",
-        "web": "http://creationeer.me"
-    },
-    "contributors": [
-        {
-            "name": "Nick Sullivan",
-            "email": "nick@sullivanflock.com",
-            "url": "http://creationeer.me"
-        },
-        {
-            "name": "Peter deHaan",
-            "url": "https://github.com/pdehaan"
-        },
-        {
-            "name": "Jatin Chopra",
-            "url": "https://github.com/jatin-"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:gorillamania/package.json-validator.git"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/gorillamania/package.json-validator/blob/master/LICENSE"
-        }
-    ],
-    "keywords": [
-        "package.json",
-        "validator",
-        "package.json validator",
-        "lint",
-        "package.json linter"
-    ],
-    "bugs": {
-        "url": "http://github.com/gorillamania/package.json-validator/issues",
-        "email": "nick@sullivanflock.com"
-    },
-    "dependencies": {
-        "optimist": "~0.6.0"
-    },
-    "devDependencies": {
-        "grunt": "~0.4.1",
-        "grunt-contrib-jshint": "~0",
-        "grunt-contrib-qunit": "~0"
-    },
-    "scripts": {
-        "test": "grunt citest"
-    },
-    "main": "PJV.js",
-    "bin": {
-        "pjv": "./bin/pjv"
-    }
+	"name": "package.json-validator",
+	"version": "0.6.5",
+	"description": "Tools to validate package.json files",
+	"bugs": {
+		"url": "http://github.com/gorillamania/package.json-validator/issues",
+		"email": "nick@sullivanflock.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JoshuaKGoldberg/package.json-validator"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "JoshuaKGoldberg",
+		"email": "npm@joshuakgoldberg.com"
+	},
+	"contributors": [
+		{
+			"name": "Nick Sullivan",
+			"email": "nick@sullivanflock.com",
+			"url": "http://creationeer.me"
+		},
+		{
+			"name": "Peter deHaan",
+			"url": "https://github.com/pdehaan"
+		},
+		{
+			"name": "Jatin Chopra",
+			"url": "https://github.com/jatin-"
+		}
+	],
+	"type": "module",
+	"main": "./lib/index.js",
+	"files": [
+		"lib/",
+		"package.json",
+		"LICENSE.md",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsup",
+		"format": "prettier .",
+		"lint": "eslint . --max-warnings 0",
+		"prepare": "husky",
+		"test": "grunt citest",
+		"tsc": "tsc"
+	},
+	"lint-staged": {
+		"*": "prettier --ignore-unknown --write"
+	},
+	"dependencies": {
+		"optimist": "~0.6.0"
+	},
+	"devDependencies": {
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.3.0",
+		"@eslint/js": "^9.6.0",
+		"@types/eslint-plugin-markdown": "^2.0.2",
+		"eslint": "^9.6.0",
+		"eslint-plugin-jsdoc": "^48.5.2",
+		"eslint-plugin-n": "^17.9.0",
+		"eslint-plugin-regexp": "^2.6.0",
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "~0",
+		"grunt-contrib-qunit": "~0",
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.7",
+		"prettier": "^3.3.2",
+		"prettier-plugin-curly": "^0.2.1",
+		"prettier-plugin-packagejson": "^2.5.0",
+		"prettier-plugin-sh": "^0.14.0",
+		"tsup": "^8.1.0",
+		"typescript": "^5.5.3",
+		"typescript-eslint": "^7.15.0"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"publishConfig": {
+		"provenance": true
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/gorillamania/package.json-validator/blob/master/LICENSE"
+		}
+	]
 }
