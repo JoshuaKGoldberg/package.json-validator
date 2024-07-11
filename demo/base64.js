@@ -3,9 +3,8 @@
  *  Base64 encode / decode
  *  http://www.webtoolkit.info/
  *
- **/
-// eslint-disable-next-line no-unused-vars
-const Base64 = {
+ */
+window.Base64 = {
 	// private property
 	_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 

@@ -25,22 +25,25 @@
 		<a
 			rel="nofollow"
 			href="https://github.com/gorillamania/package.json-validator"
-			><img
+		>
+			<img
 				style="position: absolute; top: 0; right: 0; border: 0"
 				src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
 				alt="Fork me on GitHub"
-		/></a>
+			/>
+		</a>
 
 		<div class="container" ng-controller="PackageCtrl">
 			<form>
 				<div>
-					<h2>Package.json validator</h2>
+					<h1>Package.json validator</h1>
 					<small>
 						This tool verifies the contents of
 						<a
 							href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-the-file-package-json"
-							>package.json</a
 						>
+							package.json
+						</a>
 						files against the specifications, letting you know about required
 						fields that you MUST have, warnings for fields that you SHOULD have,
 						and recommendations for optional fields that you COULD have.
@@ -73,8 +76,9 @@
 							<a
 								href=""
 								ng-click='data.github = "https://github.com/gorillamania/package.json-validator";githubFetch()'
-								>This package</a
 							>
+								This package
+							</a>
 							/
 							<a
 								href=""
@@ -108,10 +112,13 @@
 								ng-model="data.spec"
 								name="spec"
 								value="npm"
-							/><a
+							/>
+							<a
 								href="https://docs.npmjs.com/cli/v9/configuring-npm/package-json"
-								>NPM</a
 							>
+								NPM
+							</a>
+
 							(recommended)
 						</label>
 						<label class="radio inline">
@@ -120,9 +127,10 @@
 								ng-model="data.spec"
 								name="spec"
 								value="commonjs_1.0"
-							/><a href="http://wiki.commonjs.org/wiki/Packages/1.0"
-								>Packages 1.0</a
-							>
+							/>
+							<a href="http://wiki.commonjs.org/wiki/Packages/1.0">
+								Packages 1.0
+							</a>
 						</label>
 						<label class="radio inline">
 							<input
@@ -172,10 +180,10 @@
 				<br />
 
 				<footer>
-					<small
-						>This tool created to make your life easier by
-						<a href="https://github.com/gorillamania">Nick Sullivan</a></small
-					>
+					<small>
+						This tool created to make your life easier by
+						<a href="https://github.com/gorillamania">Nick Sullivan</a>
+					</small>
 					<br />
 				</footer>
 			</form>
@@ -183,25 +191,8 @@
 		<!--.container -->
 
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
-		<script src="PJV.js"></script>
-		<script src="base64.js"></script>
-		<script src="app.js"></script>
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(["_setAccount", "UA-37232148-1"]);
-			_gaq.push(["_trackPageview"]);
-
-			(function () {
-				var ga = document.createElement("script");
-				ga.type = "text/javascript";
-				ga.async = true;
-				ga.src =
-					("https:" == document.location.protocol
-						? "https://ssl"
-						: "http://www") + ".google-analytics.com/ga.js";
-				var s = document.getElementsByTagName("script")[0];
-				s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
+		<script src="../PJV.js"></script>
+		<script src="/demo/base64.js"></script>
+		<script src="/demo/app.js"></script>
 	</body>
 </html>

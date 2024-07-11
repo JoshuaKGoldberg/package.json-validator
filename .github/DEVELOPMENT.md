@@ -38,3 +38,14 @@ pnpm run lint --fix
 ```
 
 Note that you'll likely need to run `pnpm build` before `pnpm lint` so that lint rules which check the file system can pick up on any built files.
+
+## Running the Demo
+
+The `demo/` directory contains a small demo site that can validate a GitHub repository or package.json file contents.
+To run it, run [`serve`](https://www.npmjs.com/package/serve) on the current directory:
+
+```plaintext
+npx serve
+```
+
+...and then open `localhost:3000/demo`.
