@@ -1,33 +1,25 @@
 {
 	"name": "package.json-validator",
 	"version": "0.6.5",
-	"description": "Tools to validate package.json files",
-	"bugs": {
-		"url": "http://github.com/gorillamania/package.json-validator/issues",
-		"email": "nick@sullivanflock.com"
-	},
+	"description": "Tools to validate package.json files.",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/JoshuaKGoldberg/package.json-validator"
 	},
 	"license": "MIT",
 	"author": {
-		"name": "JoshuaKGoldberg",
-		"email": "npm@joshuakgoldberg.com"
+		"name": "Nick Sullivan",
+		"email": "nick@sullivanflock.com"
 	},
 	"contributors": [
 		{
 			"name": "Nick Sullivan",
-			"email": "nick@sullivanflock.com",
-			"url": "http://creationeer.me"
+			"email": "nick@sullivanflock.com"
 		},
 		{
-			"name": "Peter deHaan",
-			"url": "https://github.com/pdehaan"
-		},
-		{
-			"name": "Jatin Chopra",
-			"url": "https://github.com/jatin-"
+			"name": "JoshuaKGoldberg",
+			"email": "npm@joshuakgoldberg.com",
+			"url": "https://joshuakgoldberg.com"
 		}
 	],
 	"type": "module",
@@ -39,50 +31,38 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsup",
 		"format": "prettier .",
 		"lint": "eslint . --max-warnings 0",
 		"prepare": "husky",
-		"test": "grunt citest",
-		"tsc": "tsc"
+		"test": "vitest"
 	},
 	"lint-staged": {
 		"*": "prettier --ignore-unknown --write"
 	},
 	"dependencies": {
-		"optimist": "~0.6.0"
+		"optimist": "~0.6.1"
 	},
 	"devDependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.3.0",
 		"@eslint/js": "^9.6.0",
 		"@types/eslint-plugin-markdown": "^2.0.2",
-		"eslint": "^9.6.0",
-		"eslint-plugin-jsdoc": "^48.5.2",
+		"eslint": "^8.57.0",
+		"eslint-plugin-jsdoc": "^48.6.0",
 		"eslint-plugin-n": "^17.9.0",
 		"eslint-plugin-regexp": "^2.6.0",
-		"grunt": "~0.4.1",
-		"grunt-contrib-jshint": "~0",
-		"grunt-contrib-qunit": "~0",
+		"globals": "^15.8.0",
 		"husky": "^9.0.11",
 		"lint-staged": "^15.2.7",
 		"prettier": "^3.3.2",
 		"prettier-plugin-curly": "^0.2.1",
 		"prettier-plugin-packagejson": "^2.5.0",
 		"prettier-plugin-sh": "^0.14.0",
-		"tsup": "^8.1.0",
-		"typescript": "^5.5.3",
-		"typescript-eslint": "^7.15.0"
+		"vitest": "^2.0.2"
 	},
 	"engines": {
 		"node": ">=18"
 	},
 	"publishConfig": {
 		"provenance": true
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/gorillamania/package.json-validator/blob/master/LICENSE"
-		}
-	]
+	}
 }

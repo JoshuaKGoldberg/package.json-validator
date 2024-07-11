@@ -9,7 +9,7 @@
 		emailFormat: /\S+@\S+/, // I know this isn't thorough. it's not supposed to be.
 	};
 
-	const PJV = exports.PJV;
+	var PJV = exports.PJV;
 
 	PJV.getSpecMap = function (specName, isPrivate) {
 		if (specName == "npm") {
@@ -168,7 +168,7 @@
 			// It's just a string
 			return "Invalid data - Not a string";
 		}
-		let parsed;
+		var parsed;
 		try {
 			parsed = JSON.parse(data);
 		} catch (e) {
@@ -190,7 +190,7 @@
 		/* jshint maxstatements: 45, maxcomplexity: 21 */
 		options = options || {};
 		specName = specName || "npm";
-		const parsed = PJV.parse(data),
+		var parsed = PJV.parse(data),
 			out = { valid: false };
 
 		if (typeof parsed == "string") {
@@ -198,17 +198,17 @@
 			return out;
 		}
 
-		const map = PJV.getSpecMap(specName, parsed.private);
+		var map = PJV.getSpecMap(specName, parsed.private);
 		if (specName === false) {
 			out.critical = { "Invalid specification": specName };
 			return out;
 		}
-		let errors = [],
+		var errors = [],
 			warnings = [],
 			recommendations = [];
 
-		for (const name in map) {
-			const field = map[name];
+		for (var name in map) {
+			var field = map[name];
 
 			if (
 				parsed[name] === undefined &&
@@ -229,7 +229,7 @@
 
 			// Type checking
 			if (field.types || field.type) {
-				const typeErrors = PJV.validateType(name, field, parsed[name]);
+				var typeErrors = PJV.validateType(name, field, parsed[name]);
 				if (typeErrors.length > 0) {
 					errors = errors.concat(typeErrors);
 					continue;
@@ -270,9 +270,9 @@
 	};
 
 	PJV.validateType = function (name, field, value) {
-		const errors = [];
-		const validFieldTypes = field.types || [field.type];
-		const valueType = value instanceof Array ? "array" : typeof value;
+		var errors = [];
+		var validFieldTypes = field.types || [field.type];
+		var valueType = value instanceof Array ? "array" : typeof value;
 		if (validFieldTypes.indexOf(valueType) == -1) {
 			errors.push(
 				"Type for field " +
@@ -289,8 +289,8 @@
 	// Validates dependencies, making sure the object is a set of key value pairs
 	// with package names and versions
 	PJV.validateDependencies = function (name, deps) {
-		const errors = [];
-		for (const pkg in deps) {
+		var errors = [];
+		for (var pkg in deps) {
 			if (!PJV.packageFormat.test(pkg)) {
 				errors.push("Invalid dependency package name: " + pkg);
 			}
@@ -331,7 +331,7 @@
     */
 	PJV.validateUrlOrMailto = function (name, obj) {
 		/* jshint maxcomplexity: 10 */
-		const errors = [];
+		var errors = [];
 		if (typeof obj == "string") {
 			if (!PJV.urlFormat.test(obj) && !PJV.emailFormat.test(obj)) {
 				errors.push(name + " should be an email or a url");
@@ -375,14 +375,14 @@
 
     */
 	PJV.validatePeople = function (name, obj) {
-		const errors = [];
+		var errors = [];
 
 		function validatePerson(obj) {
 			/* jshint maxcomplexity: 10 */
 			if (typeof obj == "string") {
-				const authorRegex = /^([^<\(\s]+[^<\(]*)?(\s*<(.*?)>)?(\s*\((.*?)\))?/;
-				const authorFields = authorRegex.exec(obj);
-				const authorName = authorFields[1],
+				var authorRegex = /^([^<\(\s]+[^<\(]*)?(\s*<(.*?)>)?(\s*\((.*?)\))?/;
+				var authorFields = authorRegex.exec(obj);
+				var authorName = authorFields[1],
 					authorEmail = authorFields[3],
 					authorUrl = authorFields[5];
 				validatePerson({
@@ -409,7 +409,7 @@
 		}
 
 		if (obj instanceof Array) {
-			for (let i = 0; i < obj.length; i++) {
+			for (var i = 0; i < obj.length; i++) {
 				validatePerson(obj[i]);
 			}
 		} else {
@@ -426,7 +426,7 @@
 	 * array of objects with "type" and "url"
 	 */
 	PJV.validateUrlTypes = function (name, obj) {
-		const errors = [];
+		var errors = [];
 		function validateUrlType(obj) {
 			if (!obj.type) {
 				errors.push(name + " field should have type");
@@ -441,7 +441,7 @@
 				errors.push("Url not valid for " + name + ": " + obj);
 			}
 		} else if (obj instanceof Array) {
-			for (let i = 0; i < obj.length; i++) {
+			for (var i = 0; i < obj.length; i++) {
 				validateUrlType(obj[i]);
 			}
 		} else if (typeof obj == "object") {

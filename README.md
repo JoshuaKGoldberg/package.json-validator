@@ -1,12 +1,11 @@
 <h1 align="center">package.json validator</h1>
 
-<p align="center">Tools to validate package.json files</p>
+<p align="center">Tools to validate <code>package.json</code> files.</p>
 
 <p align="center">
 	<a href="https://github.com/JoshuaKGoldberg/package.json-validator/blob/main/.github/CODE_OF_CONDUCT.md" target="_blank"><img alt="🤝 Code of Conduct: Kept" src="https://img.shields.io/badge/%F0%9F%A4%9D_code_of_conduct-kept-21bb42" /></a>
 	<a href="https://github.com/JoshuaKGoldberg/package.json-validator/blob/main/LICENSE.md" target="_blank"><img alt="📝 License: MIT" src="https://img.shields.io/badge/%F0%9F%93%9D_license-MIT-21bb42.svg"></a>
-	<a href="http://npmjs.com/package/package.json-validator"><img alt="📦 npm version" src="https://img.shields.io/npm/v/package.json-validator?color=21bb42&label=%F0%9F%93%A6%20npm" /></a>
-	<img alt="💪 TypeScript: Strict" src="https://img.shields.io/badge/%F0%9F%92%AA_typescript-strict-21bb42.svg" />
+	<a href="http://npmjs.com/package/package.json-validator"><img alt="📦 npm version" src="https://img.shields.io/npm/v/package-json-validator?color=21bb42&label=%F0%9F%93%A6%20npm" /></a>
 </p>
 
 ## Supported Specifications
@@ -21,7 +20,9 @@ Of course, there are multiple ones to follow, which makes it trickier.
 
 ### Command line
 
-`npm install package-json-validator -g`
+```shell
+npm install package-json-validator -g
+```
 
 See `pjv --help` for usage:
 
@@ -37,7 +38,15 @@ Options:
 
 ### Node.js
 
-`npm install package-json-validator`
+```shell
+npm install package-json-validator`
+```
+
+```js
+import { PJV } from "package-json-validator";
+
+PJV.validate(/* ... */);
+```
 
 ## API
 
@@ -59,15 +68,17 @@ PJV.validate(packageData[([, spec], options)]);
 Example:
 
 ```js
-var PJV = require("package-json-validator").PJV;
+const { PJV } = require("package-json-validator");
+
 PJV.validate(data, spec, options);
 ```
 
 Example1:
 
 ```js
-var PJV = require("package-json-validator").PJV;
-let text = JSON.stringify({
+const { PJV } = require("package-json-validator");
+
+const text = JSON.stringify({
 	name: "packageJsonValidator",
 	version: "0.1.0",
 	private: true,
@@ -101,13 +112,14 @@ let text = JSON.stringify({
 		],
 	},
 });
+
 const data = PJV.validate(text);
 ```
 
-Output for above example
+Output for above example:
 
 ```js
-console.log(data)
+console.log(data);
 // {
 //  valid: true,
 //   warnings: [
@@ -129,7 +141,3 @@ console.log(data)
 ## Appreciation
 
 Many thanks to [@TechNickAI](https://github.com/TechNickAI) for creating the initial version and core infrastructure of this package! 💖
-
-<!-- You can remove this notice if you don't want it 🙂 no worries! -->
-
-> 💙 This package was templated with [`create-typescript-app`](https://github.com/JoshuaKGoldberg/create-typescript-app).

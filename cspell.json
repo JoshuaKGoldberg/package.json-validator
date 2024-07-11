@@ -1,0 +1,12 @@
+{
+	"dictionaries": ["javascript"],
+	"ignorePaths": [
+		"./coverage*",
+		"./script/__snapshots__",
+		".github",
+		"CHANGELOG.md",
+		"lib",
+		"node_modules",
+		"pnpm-lock.yaml"
+	]
+}
