@@ -1,6 +1,6 @@
-const { assert, describe, test } = require("vitest");
+import { assert, describe, test } from "vitest";
 
-const { PJV } = require("./PJV.js");
+import { PJV } from "./PJV.js";
 
 function getPackageJson(extra) {
 	const out = {
