@@ -22,6 +22,12 @@ module.exports = [
 		},
 	},
 	{
+		files: ["*.mjs"],
+		languageOptions: {
+			sourceType: "module",
+		},
+	},
+	{
 		files: ["**/*.md/*.ts"],
 		rules: {
 			"n/no-missing-import": [
