@@ -45,7 +45,7 @@
 	"devDependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.3.0",
 		"@eslint/js": "^9.6.0",
-		"@types/eslint-plugin-markdown": "^2.0.2",
+		"all-contributors-for-repository": "^0.2.2",
 		"eslint": "^8.57.0",
 		"eslint-plugin-jsdoc": "^48.6.0",
 		"eslint-plugin-n": "^17.9.0",
