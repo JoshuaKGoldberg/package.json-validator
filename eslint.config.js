@@ -1,12 +1,9 @@
-import eslint from "@eslint/js";
-import n from "eslint-plugin-n";
+const eslint = require("@eslint/js");
+const n = require("eslint-plugin-n");
 
-export default [
+module.exports = [
 	eslint.configs.recommended,
 	{
-		languageOptions: {
-			sourceType: "commonjs",
-		},
 		linterOptions: {
 			reportUnusedDisableDirectives: "error",
 		},

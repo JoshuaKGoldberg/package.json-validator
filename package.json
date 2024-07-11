@@ -2,6 +2,17 @@
 	"name": "package.json-validator",
 	"version": "0.6.5",
 	"description": "Tools to validate package.json files.",
+	"keywords": [
+		"package.json",
+		"validator",
+		"package.json validator",
+		"lint",
+		"package.json linter"
+	],
+	"homepage": "https://github.com/JoshuaKGoldberg/package.json-validator#readme",
+	"bugs": {
+		"url": "https://github.com/JoshuaKGoldberg/package.json-validator/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/JoshuaKGoldberg/package.json-validator"
@@ -22,10 +33,10 @@
 			"url": "https://joshuakgoldberg.com"
 		}
 	],
-	"type": "module",
-	"main": "./lib/index.js",
+	"type": "commonjs",
+	"main": "PJV.js",
 	"files": [
-		"lib/",
+		"PJV.js",
 		"package.json",
 		"LICENSE.md",
 		"README.md"
