@@ -7,40 +7,34 @@
  */
 
 // Command line options
-var args = require('optimist')
-    .options('filename', {
+var options = require("yargs/yargs")(process.argv.slice(2))
+    .options("filename", {
         "default": "package.json",
-        "alias": 'f'
-    }).describe('filename', 'package.json file to validate')
-    .options('spec', {
+        "alias": "f",
+        "description": "package.json file to validate",
+    })
+    .options("spec", {
         "default": "npm",
-        "alias": 's'
-    }).describe('spec', 'which spec to use - npm|commonjs_1.0|commonjs_1.1')
-    .options('warnings', {
+        "alias": "s",
+        "description": "spec to use - npm|commonjs_1.0|commonjs_1.1",
+    })
+    .options("warnings", {
         "default": false,
-        "alias": 'w'
-    }).describe('warnings', 'display warnings')
-    .options('recommendations', {
+        "alias": "w",
+        "description": "display warnings",
+    })
+    .options("recommendations", {
         "default": false,
-        "alias": 'r'
-    }).describe('recommendations', 'display recommendations')
-    .options('quiet', {
+        "alias": "r",
+        "description": "display recommendations",
+    })
+    .options("quiet", {
         "default": false,
-        "alias": 'q'
-    }).describe('quiet', 'less output')
+        "alias": "q",
+        "description": "less output",
+    })
     .usage("Validate package.json files")
-    .options('help', {
-        "default": false,
-        "alias": 'h'
-    }).describe('help', 'this help message')
-    .alias('help', '?');
-
-var options = args.argv;
-
-if (options.help) {
-    args.showHelp();
-    process.exit(0);
-}
+    .parse();
 
 var PJV = require('../PJV').PJV;
 var fs = require('fs');

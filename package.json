@@ -44,7 +44,7 @@
         "email": "nick@sullivanflock.com"
     },
     "dependencies": {
-        "optimist": "~0.6.0"
+        "yargs": "~17.7.2"
     },
     "devDependencies": {
         "grunt": "~0.4.1",
