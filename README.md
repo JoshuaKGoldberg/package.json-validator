@@ -39,7 +39,7 @@ Options:
 ### Node.js
 
 ```shell
-npm install package-json-validator`
+npm install package-json-validator
 ```
 
 ```js
