@@ -36,15 +36,12 @@
 	"type": "commonjs",
 	"main": "PJV.js",
 	"files": [
-		"app.js",
-		"base64.js",
 		"bin/",
+		"demo/",
 		"index.html",
 		"LICENSE.md",
 		"package.json",
-		"PJV.js",
-		"README.md",
-		"robots.txt"
+		"README.md"
 	],
 	"scripts": {
 		"format": "prettier .",
