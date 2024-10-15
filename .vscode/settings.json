@@ -1,0 +1,16 @@
+{
+	"editor.codeActionsOnSave": { "source.fixAll.eslint": "explicit" },
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.rulers": [80],
+	"eslint.probe": [
+		"javascript",
+		"javascriptreact",
+		"json",
+		"jsonc",
+		"markdown",
+		"yaml"
+	],
+	"eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+	"eslint.useFlatConfig": true
+}
