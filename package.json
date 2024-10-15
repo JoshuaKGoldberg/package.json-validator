@@ -9,13 +9,13 @@
 		"lint",
 		"package.json linter"
 	],
-	"homepage": "https://github.com/JoshuaKGoldberg/package.json-validator#readme",
+	"homepage": "https://github.com/JoshuaKGoldberg/package-json-validator#readme",
 	"bugs": {
-		"url": "https://github.com/JoshuaKGoldberg/package.json-validator/issues"
+		"url": "https://github.com/JoshuaKGoldberg/package-json-validator/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/JoshuaKGoldberg/package.json-validator"
+		"url": "https://github.com/JoshuaKGoldberg/package-json-validator"
 	},
 	"license": "MIT",
 	"author": {
