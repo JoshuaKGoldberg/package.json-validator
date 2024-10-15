@@ -57,6 +57,10 @@
 					validate: PJV.validateDependencies,
 				},
 				devDependencies: { type: "object", validate: PJV.validateDependencies },
+				peerDependencies: {
+					type: "object",
+					validate: PJV.validateDependencies,
+				},
 				bundledDependencies: { type: "array" },
 				bundleDependencies: { type: "array" },
 				optionalDependencies: {

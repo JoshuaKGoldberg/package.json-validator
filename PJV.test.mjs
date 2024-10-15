@@ -1,4 +1,4 @@
-import { assert, describe, test } from "vitest";
+import { assert, describe, it, test } from "vitest";
 
 import { PJV } from "./PJV.js";
 
@@ -109,33 +109,71 @@ describe("NPM", () => {
 		);
 	});
 
-	test("Dependencies Ranges", function () {
-		const json = getPackageJson({
-			dependencies: {
-				star: "*",
-				empty: "",
-				url: "https://github.com/gorillamania/package.json-validator",
-				"caret-first": "^1.0.0",
-				"tilde-first": "~1.2",
-				"x-version": "1.2.x",
-				"tilde-top": "~1",
-				"caret-top": "^1",
-			},
-			devDependencies: {
-				range: "1.2.3 - 2.3.4",
-				lteq: "<=1.2.3",
-				gteq: ">=1.2.3",
-				"verion-build": "1.2.3+build2012",
-				lt: "<1.2.3",
-				gt: ">1.2.3",
-			},
+	describe("Dependencies Ranges", function () {
+		test("Smoke", () => {
+			const json = getPackageJson({
+				dependencies: {
+					star: "*",
+					empty: "",
+					url: "https://github.com/gorillamania/package.json-validator",
+					"caret-first": "^1.0.0",
+					"tilde-first": "~1.2",
+					"x-version": "1.2.x",
+					"tilde-top": "~1",
+					"caret-top": "^1",
+				},
+				devDependencies: {
+					range: "1.2.3 - 2.3.4",
+					lteq: "<=1.2.3",
+					gteq: ">=1.2.3",
+					"verion-build": "1.2.3+build2012",
+					lt: "<1.2.3",
+					gt: ">1.2.3",
+				},
+				peerDependencies: {
+					range: "1.2.3 - 2.3.4",
+					lteq: "<=1.2.3",
+					gteq: ">=1.2.3",
+					"verion-build": "1.2.3+build2012",
+					lt: "<1.2.3",
+					gt: ">1.2.3",
+				},
+			});
+			const result = PJV.validate(JSON.stringify(json), "npm", {
+				warnings: false,
+				recommendations: false,
+			});
+			assert.equal(result.valid, true, JSON.stringify(result));
+			assert.equal(result.critical, undefined, JSON.stringify(result));
 		});
-		const result = PJV.validate(JSON.stringify(json), "npm", {
-			warnings: false,
-			recommendations: false,
+
+		it("reports a complaint when devDependencies has an invalid range", () => {
+			const json = getPackageJson({
+				devDependencies: {
+					"package-name": "abc123",
+				},
+			});
+
+			const result = PJV.validate(JSON.stringify(json), "npm");
+
+			assert.deepStrictEqual(result.errors, [
+				"Invalid version range for dependency package-name: abc123",
+			]);
 		});
-		assert.equal(result.valid, true, JSON.stringify(result));
-		assert.equal(result.critical, undefined, JSON.stringify(result));
+
+		it("reports a complaint when peerDependencies has an invalid range", () => {
+			const json = getPackageJson({
+				peerDependencies: {
+					"package-name": "abc123",
+				},
+			});
+
+			const result = PJV.validate(JSON.stringify(json), "npm");
+
+			assert.deepStrictEqual(result.errors, [
+				"Invalid version range for dependency package-name: abc123",
+			]);
+		});
 	});
 
 	test("Dependencies with scope", function () {
