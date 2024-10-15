@@ -1,3 +1,9 @@
+## [0.6.7](https://github.com/JoshuaKGoldberg/package.json-validator/compare/v0.6.6...v0.6.7) (2024-10-15)
+
+### Bug Fixes
+
+- add missing files to publish ([fd3cdd1](https://github.com/JoshuaKGoldberg/package.json-validator/commit/fd3cdd105e7c48584c9f39c05336306ee2f71df2))
+
 ## [0.6.6](https://github.com/JoshuaKGoldberg/package.json-validator/compare/v0.6.3...v0.6.6) (2024-10-15)
 
 ### Bug Fixes
