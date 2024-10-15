@@ -282,7 +282,7 @@
     "README.md"
   ],
   "imageSize": 100,
-  "projectName": "package.json-validator",
+  "projectName": "package-json-validator",
   "projectOwner": "JoshuaKGoldberg",
   "repoHost": "https://github.com",
   "repoType": "github"

@@ -21,7 +21,7 @@ const npmWarningFields = {
 	bugs: "http://example.com/bugs",
 	repository: {
 		type: "git",
-		url: "git@github.com:gorillamania/package.json-validator.git",
+		url: "git@github.com:JoshuaKGoldberg/package-json-validator.git",
 	},
 	licenses: [{ type: "MIT", url: "http://example.com/license" }],
 	contributors: ["Nick Sullivan <nick@sullivanflock.com>"],
@@ -115,7 +115,7 @@ describe("NPM", () => {
 				dependencies: {
 					star: "*",
 					empty: "",
-					url: "https://github.com/gorillamania/package.json-validator",
+					url: "https://github.com/JoshuaKGoldberg/package-json-validator",
 					"caret-first": "^1.0.0",
 					"tilde-first": "~1.2",
 					"x-version": "1.2.x",
@@ -177,12 +177,12 @@ describe("NPM", () => {
 	});
 
 	test("Dependencies with scope", function () {
-		// reference: https://github.com/gorillamania/package.json-validator/issues/49
+		// reference: https://github.com/JoshuaKGoldberg/package-json-validator/issues/49
 		const json = getPackageJson({
 			dependencies: {
 				star: "*",
 				empty: "",
-				url: "https://github.com/gorillamania/package.json-validator",
+				url: "https://github.com/JoshuaKGoldberg/package-json-validator",
 				"@reactivex/rxjs": "^5.0.0-alpha.7",
 			},
 		});

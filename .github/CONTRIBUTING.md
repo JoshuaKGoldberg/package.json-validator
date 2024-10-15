@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in contributing to `package.json-validator`! 💖
+Thanks for your interest in contributing to `package-json-validator`! 💖
 
 > After this page, see [DEVELOPMENT.md](./DEVELOPMENT.md) for local development instructions.
 
