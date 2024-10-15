@@ -1,5 +1,5 @@
 {
-	"name": "package.json-validator",
+	"name": "package-json-validator",
 	"version": "0.6.5",
 	"description": "Tools to validate package.json files.",
 	"keywords": [
