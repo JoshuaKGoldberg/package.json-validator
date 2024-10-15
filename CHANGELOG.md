@@ -1,3 +1,9 @@
+## [0.6.8](https://github.com/JoshuaKGoldberg/package.json-validator/compare/v0.6.7...v0.6.8) (2024-10-15)
+
+### Bug Fixes
+
+- demo files are now in demo/ ([84f7689](https://github.com/JoshuaKGoldberg/package.json-validator/commit/84f76891ebc023ef43dcfd9a62c382f842887dea))
+
 ## [0.6.7](https://github.com/JoshuaKGoldberg/package.json-validator/compare/v0.6.6...v0.6.7) (2024-10-15)
 
 ### Bug Fixes
