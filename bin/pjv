@@ -21,16 +21,19 @@ var options = require("yargs/yargs")(process.argv.slice(2))
 	.options("warnings", {
 		default: false,
 		alias: "w",
+		boolean: true,
 		description: "display warnings",
 	})
 	.options("recommendations", {
 		default: false,
 		alias: "r",
+		boolean: true,
 		description: "display recommendations",
 	})
 	.options("quiet", {
 		default: false,
 		alias: "q",
+		boolean: true,
 		description: "less output",
 	})
 	.usage("Validate package.json files")
