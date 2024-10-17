@@ -1,3 +1,9 @@
+# [0.7.0](https://github.com/JoshuaKGoldberg/package-json-validator/compare/v0.6.8...v0.7.0) (2024-10-17)
+
+### Features
+
+- migrate to yargs ([#94](https://github.com/JoshuaKGoldberg/package-json-validator/issues/94)) ([58656fc](https://github.com/JoshuaKGoldberg/package-json-validator/commit/58656fce679786f96ec6943e102ca42f9329d864)), closes [#86](https://github.com/JoshuaKGoldberg/package-json-validator/issues/86)
+
 ## [0.6.8](https://github.com/JoshuaKGoldberg/package-json-validator/compare/v0.6.7...v0.6.8) (2024-10-15)
 
 ### Bug Fixes
