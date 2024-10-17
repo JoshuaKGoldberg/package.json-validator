@@ -7,46 +7,37 @@
  */
 
 // Command line options
-var args = require("optimist")
+var options = require("yargs/yargs")(process.argv.slice(2))
 	.options("filename", {
 		default: "package.json",
 		alias: "f",
+		description: "package.json file to validate",
 	})
-	.describe("filename", "package.json file to validate")
 	.options("spec", {
 		default: "npm",
 		alias: "s",
+		description: "spec to use - npm|commonjs_1.0|commonjs_1.1",
 	})
-	.describe("spec", "which spec to use - npm|commonjs_1.0|commonjs_1.1")
 	.options("warnings", {
 		default: false,
 		alias: "w",
+		boolean: true,
+		description: "display warnings",
 	})
-	.describe("warnings", "display warnings")
 	.options("recommendations", {
 		default: false,
 		alias: "r",
+		boolean: true,
+		description: "display recommendations",
 	})
-	.describe("recommendations", "display recommendations")
 	.options("quiet", {
 		default: false,
 		alias: "q",
+		boolean: true,
+		description: "less output",
 	})
-	.describe("quiet", "less output")
 	.usage("Validate package.json files")
-	.options("help", {
-		default: false,
-		alias: "h",
-	})
-	.describe("help", "this help message")
-	.alias("help", "?");
-
-var options = args.argv;
-
-if (options.help) {
-	args.showHelp();
-	process.exit(0);
-}
+	.parse();
 
 var PJV = require("../PJV").PJV;
 var fs = require("fs");
