@@ -274,6 +274,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "de-don",
+      "name": "Denis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14067329?v=4",
+      "profile": "http://ddy.su",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
